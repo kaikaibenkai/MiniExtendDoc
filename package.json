@@ -1,0 +1,17 @@
+{
+  "name": "miniextend_docs",
+  "version": "0.0.0",
+  "description": "MiniExtend文档",
+  "main": "src/README.md",
+  "repository": "https://github.com/kaikaibenkai/MiniExtend.git",
+  "author": "kaikaibenkai",
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "vuepress": "^1.9.7"
+  },
+  "scripts": {
+    "dev": "vuepress dev src",
+    "build": "vuepress build src"
+  }
+}
