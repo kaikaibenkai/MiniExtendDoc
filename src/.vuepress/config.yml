@@ -1,6 +1,6 @@
 title: MiniExtend
 description: 一个为迷你世界脚本设计的Lua库
-base: /MiniExtend/
+base: /MiniExtendDoc/
 plugins:
   - '@vuepress/last-updated'
 themeConfig:
@@ -26,7 +26,7 @@ themeConfig:
   nextLinks: true
   prevLinks: true
   repo: 0-0000/MiniExtend
-  docsRepo: kaikaibenkai/MiniExtend
+  docsRepo: kaikaibenkai/MiniExtendDoc
   docsDir: src
   docsBranch: main
   editLinks: true
