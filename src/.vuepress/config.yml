@@ -1,5 +1,6 @@
 title: MiniExtend
 description: 一个为迷你世界脚本设计的Lua库
+base: /MiniExtend/
 plugins:
   - '@vuepress/last-updated'
 themeConfig:
