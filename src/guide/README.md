@@ -4,16 +4,25 @@ title: 快速上手
 
 
 
+::: danger 这不是 MiniExtend v2 文档
+
+本文档描述 v0 ~ v1 ，最新的文档正在撰写中……
+
+如果你对 MiniExtend 有一定的理解，可以[**帮助我们撰写文档**](https://github.com/kaikaibenkai/MiniExtendDoc)。
+
+:::
+
+
 # 快速入门路线图
 
 ## 开始学习
 
-- [miniExtend 搭建环境](/environment.html)
+- [miniExtend 搭建环境](/guide/environment.html)
 - [miniExtend API参考](/api/)
 
 ## miniExtend
 
-- [miniExtend Core](/api/core.html)
+- [miniExtend Core](/guide/core.html)
 - [miniExtend Time](/api/time.html)
 - [miniExtend Console](/api/console.html)
 - [miniExtend Object](/api/object.html)

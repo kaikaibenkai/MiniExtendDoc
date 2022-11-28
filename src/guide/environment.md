@@ -8,7 +8,7 @@ title: 环境搭建
 
 ## 全局作用域
 
-关于作用域，参见[定义](./document.html#namespace)。
+关于作用域，参见[定义](./document.html)。
 
 在全局作用域下，按<span title="源代码开头显示了它们依赖的脚本">一定顺序</span>加入这些脚本。
 
@@ -23,7 +23,7 @@ title: 环境搭建
 5. `event`
 6. `ui`
 
-直接将源代码复制到脚本中即可，也可以使用加载文件按钮<img style='/static/load-script-button.png' src='' />来加载源代码。
+直接将源代码复制到脚本中即可，也可以使用加载文件按钮<img style='width: 33px; height: 23px;' src='/static/load-script-button.png' />来加载源代码。
 
 完成后界面应如图所示（main 脚本组管理自己的脚本）：
 
