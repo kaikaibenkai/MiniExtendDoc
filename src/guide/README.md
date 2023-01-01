@@ -17,6 +17,7 @@ title: 快速上手
 
 ## 开始学习
 
+- [简介与约定](/guide/starter.html)
 - [miniExtend 搭建环境](/guide/environment.html)
 - [miniExtend API参考](/api/)
 

@@ -12,6 +12,7 @@ themeConfig:
   sidebar:
     /guide/:
       - ./
+      - starter
       - environment
       - core
     /api/:
