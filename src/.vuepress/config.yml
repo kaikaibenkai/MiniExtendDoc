@@ -14,12 +14,12 @@ themeConfig:
       - ./
       - starter
       - environment
-      - core
     /api/:
       - ./
       - title: API 详细介绍
         children:
           - console
+          - core
           - object
           - event
           - time
