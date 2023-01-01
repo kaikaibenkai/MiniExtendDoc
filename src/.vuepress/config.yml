@@ -18,7 +18,7 @@ themeConfig:
       - ./
       - title: API 详细介绍
         children:
-          - console
+          - log
           - core
           - object
           - event
