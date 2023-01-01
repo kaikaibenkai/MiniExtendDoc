@@ -4,11 +4,11 @@ title: 快速上手
 
 
 
-::: danger 这不是 MiniExtend v2 文档
+::: danger 这不是 MiniExtend v2/v3 文档
 
 本文档描述 v0 ~ v1 ，最新的文档正在撰写中……
 
-如果你对 MiniExtend 有一定的理解，可以[**帮助我们撰写文档**](https://github.com/kaikaibenkai/MiniExtendDoc)。
+如果你对 MiniExtend 有一定的理解，可以[**帮助我们撰写文档**](https://github.com/kaikaibenkai/MiniExtendDoc/tree/docs-v3)。
 
 :::
 
