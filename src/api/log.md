@@ -32,54 +32,55 @@ title: 日志管理 Log
 
 ## 函数介绍
 
-`Log` 作用域包含以下**静态**函数:
-以下函数都会返回一个 `boolean` ，`true` 表示调用成功，`false` 表示调用失败。　　
+`Log` 作用域包含以下**静态**函数：
+
+以下函数都会返回一个 `boolean` ，`true` 表示调用成功，`false` 表示调用失败。
 
 ### `log`
 
-```lua
----@param ... any 输出的内容
-function Log.log(...)
-  Log.logtag("global", ...); -- 等价
-end
-```
-
 输出日志，以 `"global"` 为标签。
 
-### `logtag`
+等价于 `Log.logtag("global", ...)` ，格式化方法与 `print` 函数相同。
 
 ```lua
----@param tag string 标签
----@param ... any 输出的内容
-function Log.logtag(tag, ...) end
+---@param ...data any 输出的内容
+function Log.log(...) end
 ```
+
+### `logtag`
 
 以 `tag` 为标签输出 `...` 。
 
 格式化方法与 `print` 函数相同。
 
+```lua
+---@param tag string 标签
+---@param ...data any 输出的内容
+function Log.logtag(tag, ...) end
+```
+
 ### `warn`
+
+以黄色高亮输出警告信息。
 
 ```lua
 ---@param message string 警告信息
 function Log.warn(message) end
 ```
 
-以黄色高亮输出警告信息。
-
 ### `error`
+
+红色高亮输出错误信息，不抛出实际错误。
 
 ```lua
 ---@param message string 错误信息
 function Log.error(message) end
 ```
 
-红色高亮输出错误信息，不抛出实际错误。
+### `clear`<Badge type="warning">不稳定</Badge>
 
-### `clear`<Badge text="不稳定" type="warning"/>
+清空日志。
 
 ```lua
 function Log.clear() end
 ```
-
-清空日志。

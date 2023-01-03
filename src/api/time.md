@@ -4,7 +4,7 @@ title: 游戏时间 Time
 
 
 
-# miniExtend Time
+# MiniExtend Time
 
 对应源文件： `time.lua` 。
 

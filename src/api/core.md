@@ -20,15 +20,13 @@ function print(...) end
 
 由于控制台是不可见的，在脚本中 `print()` 函数被重定向到日志，MiniExtend 保留了这个更改，虽然进行了重写。
 
-### `loadstring`
+### `loadstring2`
 
 ```lua
-function loadstring(string [, chuckname]) end
+function loadstring2(string [, chuckname]) end
 ```
 
-与理想的 `loadstring()` 函数不同的是，该函数返回的函数的环境为 `genv` ，因此无法直接使用 MiniExtend 。
-
-如果希望环境为 `_GScriptFenv_` ，请使用 `loadstring2()` 函数。
+环境为 `_GScriptFenv_` 的 `loadstring()` 函数。
 
 ::: tip
 
@@ -38,11 +36,13 @@ function loadstring(string [, chuckname]) end
 
 ### `Env.__init__`
 
+初始化脚本运行环境。
+
 ```lua
 function Env.__init() end
 ```
 
-该函数初始化脚本的环境，**在每个自定义脚本开头都要最先执行**，不包括 UI 作用域中的 *ui_main.lua* ，否则可能导致脚本效率降低，出现错误。
+**在每个自定义脚本开头都要最先执行**，不包括 UI 作用域中的 `ui_main.lua` ，否则可能导致脚本效率降低，出现错误。
 
 （实际上就是把脚本对应的函数得环境设为 `_GScriptFenv_` ）
 
@@ -50,31 +50,31 @@ function Env.__init() end
 
 并且每个脚本都会有不同的这样的环境，因为每个脚本都对应一个函数，而调用脚本即调用该函数，在此之前会设置环境。
 
-### `indexAPI`
-
-```lua
----@param key string 访问的对象名称
----@return any 访问结果
-function indexAPI(key) end
-```
+### `Env.indexAPI`
 
 获取游戏 API 对象，最好使用一个局部变量存储返回值。
 
 函数会访问新的 `_GScriptFenv_` ，但只应用于获取游戏 API 对象。
 
-由于 `Env.__init__()` 把脚本对应的函数得环境设为 `_GScriptFenv_` ，因此无法直接访问游戏 API ，使用该函数访问游戏 API 。
-
-### `index`
+由于 `Env.__init__()` 把脚本对应的函数的环境设为 `_GScriptFenv_` ，因此无法直接访问游戏 API ，使用该函数访问游戏 API 。
 
 ```lua
----@param key string 索引的键
----@return any 引索结果
-function index(key) end
+---@param key string 访问的对象名称
+---@return any 访问结果
+function Env.indexAPI(key) end
 ```
+
+### `Env.index`
 
 使用旧的 `_GScriptFenv_`（实际上已经不存在）索引全局变量，例如脚本常量、 `printtag` 、`warn` 等函数。
 
 这等同于以常规方式访问不为游戏 API 的全局变量。
+
+```lua
+---@param key string 索引的键
+---@return any 引索结果
+function Env.index(key) end
+```
 
 ### 访问范围表
 
@@ -101,13 +101,15 @@ function index(key) end
 
 ### `deepcopy`
 
+深拷贝一个 `table`。
+
 ```lua
 ---@param table table 要深拷贝的表
 ---@return table 拷贝结果
 function deepcopy(table) end
 ```
 
-返回 `table` 的深拷贝，基本等价于 `copy_table(table)`，使用它替代 `copy_table` 。
+基本等价于 `copy_table(table)`，使用它替代 `copy_table` 。
 
 ## 注意事项
 
