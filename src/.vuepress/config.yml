@@ -19,11 +19,11 @@ themeConfig:
       - ./
       - title: API 详细介绍
         children:
-          - log
           - core
+          - log
+          - time
           - object
           - event
-          - time
           - ui
   nextLinks: true
   prevLinks: true

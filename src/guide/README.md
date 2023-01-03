@@ -23,5 +23,6 @@ title: 快速上手
 
 ## 附加
 
-以下内容不属于 MiniExtend ，但没有官方的文档描述它们，而它们对于使用 MiniExtend 又是有用的：
-- [MiniExtend 脚本与标准 lua 脚本的差异](./difference.html)
+以下内容并不属于 MiniExtend ，但对脚本开发有用，所以留下了链接。  
+
+- [迷你世界 wiki](https://github.com/Mini-World-Dev-Org/Mini-World-Wiki/wiki/)
