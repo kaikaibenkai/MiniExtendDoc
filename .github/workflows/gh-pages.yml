@@ -10,7 +10,7 @@ jobs:
       contents: write
     runs-on: ubuntu-latest
     steps:
-      - name: 准备拉取代码
+      - name: 准备 Git 环境
         uses: actions/checkout@v3.2.0
         with:
           ref: main
@@ -20,12 +20,14 @@ jobs:
           git branch -D gh-pages
           git gc
           git switch -c gh-pages
-      - name: 准备安装依赖
+      - name: 准备 Node.js 环境
         uses: actions/setup-node@v3.5.1
         with:
           node-version: 16
       - name: 安装依赖
-        run: npm install
+        run: |
+          npm install -g yarn
+          yarn
       - name: 构建静态文档
         run: |
           npm run build
