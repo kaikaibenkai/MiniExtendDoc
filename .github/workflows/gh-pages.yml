@@ -16,7 +16,7 @@ jobs:
           ref: main
           fetch-depth: 0
       - name: 拉取代码
-      - run: |
+        run: |
           git branch -D gh-pages
           git gc
           git switch -c gh-pages
