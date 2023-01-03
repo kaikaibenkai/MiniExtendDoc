@@ -10,22 +10,27 @@ jobs:
       contents: write
     runs-on: ubuntu-latest
     steps:
-      - name: 下载代码
+      - name: 准备拉取代码
         uses: actions/checkout@v3.2.0
         with:
           ref: main
           fetch-depth: 0
-        run: |
+      - name: 拉取代码
+      - run: |
           git branch -D gh-pages
           git gc
           git switch -c gh-pages
-      - name: 安装依赖
+      - name: 准备安装依赖
         uses: actions/setup-node@v3.5.1
         with:
           node-version: 16
+      - name: 安装依赖
         run: npm install
       - name: 构建静态文档
-        run: npm run build
+        run: |
+          npm run build
+          git add .
+          git commit -m "静态部署"
   deploy:
     name: 部署
     needs: build
