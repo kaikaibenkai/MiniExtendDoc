@@ -10,16 +10,16 @@ title: 快速上手
 
 - [简介与约定](/guide/starter.html)
 - [MiniExtend 搭建环境](/guide/environment.html)
-- [MiniExtend API参考](/api/)
 
-## MiniExtend
+## 深入学习
 
+- [API 概述](/api/)
 - [MiniExtend Core](/guide/core.html)
+- [MiniExtend Log](/api/log.html)
 - [MiniExtend Time](/api/time.html)
-- [MiniExtend Console](/api/console.html)
 - [MiniExtend Object](/api/object.html)
 - [MiniExtend Event](/api/event.html)
-- [MiniExtend CustomUI](/api/ui.html)
+- [MiniExtend UI](/api/ui.html)
 
 ## 附加
 
