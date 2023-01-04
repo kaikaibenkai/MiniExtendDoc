@@ -47,7 +47,7 @@ function Log.log(...) end
 
 以 `tag` 为标签输出 `...` 。
 
-格式化方法与 `print` 函数相同。
+格式化方法与原生 Lua 中的 `print` 函数相同。
 
 ```lua
 ---@param tag string 标签
