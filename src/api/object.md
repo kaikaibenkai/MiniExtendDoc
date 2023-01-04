@@ -44,7 +44,7 @@ function setObjectId(objectid) end
 
 设置 `objid` 的值。
 
-## 实例
+## 代码示例
 
 ::: tip
 

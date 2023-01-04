@@ -78,16 +78,6 @@ MiniExtend 自定义事件名在 `event.lua` 中的 `CustomEvents`（局部变�
 
 你会发现这些自定义事件名描述的都是 UI 事件，实际上通常通过 [MiniExtend UI](/api/ui.html) 监听这些事件。
 
-::: tip 一些易混淆的事件
-
-在按钮按下的**第一帧**触发 `UI.Button.TouchBegin` 事件，松开后触发 `UI.Button.Click` 事件。
-
-若按下按钮后，拖到按钮外再松开，则不视作松开，也不会触发点击事件。
-
-`UI.LostFocus` 可以认为是输入完成。
-
-:::
-
 ### `Register`<Badge text="虚拟" type="warning"/>
 
 ::: tip
@@ -107,3 +97,13 @@ MiniExtend 自定义事件名在 `event.lua` 中的 `CustomEvents`（局部变�
 | `msgStr` | `string` | API 事件名 | √ | |
 | `callback` | `function` | 回调函数 | 预绑定时 | |
 | `eventName` | `string` | 调用时传递的 `eventname` | 预绑定时 | |
+
+## 易混淆的事件
+
+在按钮按下的**第一帧**触发 `UI.Button.TouchBegin` 事件，松开后触发 `UI.Button.Click` 事件。
+
+若按下按钮后，拖到按钮外再松开，则不视作松开，也不会触发点击事件。
+
+`UI.LostFocus` 可以认为是输入完成。
+
+对于打开时不呼出鼠标的界面，PC 端可按下 `ESC` 关闭，触发 `UI.Hide` 事件。

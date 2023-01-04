@@ -78,7 +78,7 @@ function cancelScheduleCall(id) end
 成员变量：
 
 | 名称 | 类型 | 简介 | 可读 | 可写 |
-| :---: | :---: | :---: | :---: | :---: |
+| :-: | :-: | :-: | :-: | :-: |
 | `createTime` | `number` | 对象创建时的**CPU 时间**| √ | |
 | `tick` | `integer` | 计时器**累计运行**的游戏帧数 | √ | |
 | `delay` | `integer` | 下次调用 `callback` 的间隔帧数（≤0时恢复为1） | √ | |

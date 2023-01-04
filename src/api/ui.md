@@ -20,7 +20,7 @@ MiniExtend UI 前身为 `Customui` ，但以面向对象方式描述界面与元
 
 ### `UI.getRootSize`
 
-获取回自定义 UI 界面的大小。
+获取自定义 UI 界面的大小。
 
 ```lua
 ---@return float, float 宽和高
@@ -44,13 +44,12 @@ function UI:getRootSize() end
 
 UI 界面，以下简称 `UIView` 。
 
-### `UI.UIView:new`
-
-构造一个 [`UIView`](#ui-uiview) 对象。
+成员函数：
 
 ```lua
+---构造一个 UIView 对象。
 ---@param uiid string 指定该 UI 界面的 ID（不检查可用性）
----@return 
+---@return UI.UIView
 function UI.UIView:new(uiid) end
 ```
 
@@ -160,18 +159,14 @@ function UI.Element:setState(state [, playerid]) end
 ---@param playerid integer 目标玩家
 ---@return boolean 是否成功
 function UI.Element:setPosition(x, y [, playerid]) end
-```
 
-```lua
 ---修改元件大小。
 ---@param width number 元件宽度
 ---@param height number 元件高度
 ---@param playerid integer 目标玩家
 ---@return boolean 是否成功
 function UI.Element:setSize(width, height [, playerid]) end
-```
 
-```lua
 ---将原始元件（旋转0°）绕其位置顺时针旋转 `angle` 度。
 ---@param angle number 旋转度数
 ---@param playerid integer 目标玩家
@@ -185,14 +180,12 @@ function UI.Element:setAngle(angle [, playerid]) end
 ---@param playerid integer 目标玩家
 ---@return boolean 是否成功
 function UI.Element:setColor(color [, playerid]) end
-```
 
-```lua
 ---修改元件透明度。
 ---@param alpha number 元件透明度（0为完全透明，100为完全不透明）
 ---@param playerid integer 目标玩家
 ---@return boolean 是否成功
-function UI.Element:setColor(alpha [, playerid]) end
+function UI.Element:setAlpha(alpha [, playerid]) end
 ```
 
 ### `UI.Texture`
@@ -237,7 +230,8 @@ function UI.Button:new(uiview, elementid) end
 
 | 名称 | 类型 | 简介 | 可读 | 可写 |
 | :-: | :-: | :-: | :-: | :-: |
-| `pressEvent` | `function` \| `nil` | 按下按钮时的回调 | √ | √ |
+| `pressEvent` | `function` \| `nil` | [按下按钮](/api/event.html#易混淆的事件)时的回调 | √ | √ |
+| `clickEvent` | `function` \| `nil` | [点击按钮](/api/event.html#易混淆的事件)时的回调 | √ | √ |
 
 ### `UI.Label`
 
@@ -261,9 +255,7 @@ function UI.Label:new(uiview, elementid) end
 ---@param playerid integer 目标玩家
 ---@return boolean 是否成功
 function UI.Label:setText(text [, playerid]) end
-```
 
-```lua
 ---修改字体大小。
 ---@param size integer 字体大小
 ---@param playerid integer 目标玩家
@@ -289,7 +281,7 @@ function UI.EditBox:new(uiview, elementid) end
 
 | 名称 | 类型 | 简介 | 可读 | 可写 |
 | :-: | :-: | :-: | :-: | :-: |
-| `lostFocusEvent` | 输入框失去焦点（输入完成）时的回调 || √ | √ |
+| `lostFocusEvent` | [输入框失去焦点](/api/event.html#易混淆的事件)时的回调 || √ | √ |
 
 回调传递的输入框内容，会先被和谐处理。
 
