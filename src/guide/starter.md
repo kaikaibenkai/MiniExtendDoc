@@ -8,120 +8,85 @@ title: 简介与约定
 
 MiniExtend 是一个为<span title="理论上支持任何使用迷你世界引擎的软件，例如迷你编程">迷你世界</span>脚本设计的 Lua 库，其主要目的是方便开发者使用开发者脚本开发游戏。
 
-MiniExtend 使用 MIT Licence 作为许可证，它要求你保留作者的版权，侵权行为包括但不限于私自删除源代码中的作者信息。
+MiniExtend 使用 [MIT License](https://mit-license.org/) 作为许可证，它要求你保留作者的版权，侵权行为包括但不限于私自删除源代码中的作者信息。
 
-（详见 [MiniExtend 的优势](../api/#miniextend-的优势)）
+## MiniExtend 的优势
 
-# 约定
+### 简化开发
 
-## 定义
+使用 MiniExtend 可以极大降低迷你世界脚本开发复杂度。
 
-### UI 事件
+特别是 [MiniExtend UI](/api/ui.html) ，它允许以面相对象方式操作自定义 UI ，大大降低了调用函数时传递的参数数量。例如 `UI.Element:show` 函数，其对应的 API 为 `Customui:showElement` ，你甚至可以不传任何参数调用 `UI.Element:show` 并正确运行，而 API 却需要 3 个参数。
 
-发生在 UI 界面中的事件就是该 UI 界面的事件，简称 UI 事件。
+MiniExtend 使你将脚本代码集中在[全局作用域](/api/#全局作用域)下管理。
+只需在 [UI 作用域](/api/#ui-作用域)下添加简短的脚本并稍作修改即可支持 [UI 事件](/api/#ui-事件)，无需在各个作用域之间来回切换。
 
-UI 事件包括：
+原生 API 无法在全局作用域下绑定绑定 UI 事件，而 MiniExtend Event 做到了。
 
-- 界面显示 `UI.Show`
-- 界面隐藏 `UI.Hide`
-- 按钮被按下 `UI.Button.TouchBegin`
-- 按钮被点击 `UI.Button.Click`
-- 输入框失去焦点 `UI.LostFocus`
+### 提高效率
 
-以及相关自定义事件。
+MiniExtend 可提高脚本运行效率，例如访问全局变量的速度是默认的 <strong style="color: red;">22~35</strong> 倍。
+例如，访问 20 个不同的不存在的全局变量，不使用 MiniExtend 的脚本花了 24.691s ，而使用 MiniExtend 的脚本只花了 1.014s（数据排除循环花费），几乎是瞬间完成，效率为默认的 <strong style="color: red;">2435%</strong> 。
 
-### 脚本作用域
+多次实验得到的平均值：
 
-脚本文件所处的位置就是脚本文件的作用域。
+> 原生 API ：17.48s
+> 
+> MiniExtend：0.66s
+> 
+> 运行效率：<strong style="color: red;">2658%</strong>
 
-所处的位置和脚本文件在文件结构上的位置有关，例如有的脚本文件在<span title="这里包括子文件夹，后同">地图文件夹</span>中，而有的在 UI 界面文件夹中。
+不要过于震惊，这就是实验事实，你也可以手动验证实验数据的真实性。
 
-所处的位置决定了脚本在什么时候执行，以及脚本执行时的环境。
+### 易于学习
 
-需要注意，不同的脚本作用域下的脚本的[环境](http://www.lua.org/manual/5.1/manual.html#2.9) `_GScriptFenv_`（`_G`）是不同的，所以**不同作用域下的脚本不共享全局变量**，但有其它方式来让它们交流（详见 [core](../api/core) ）。
+学习和使用 MiniExtend 并不困难。
 
-一般将作用域分为全局作用域、UI 作用域。
+如果你会使用 Lua ，那么使用 MiniExtend 也很简单。
 
-### 全局作用域
+代码始终会包含详细的注释以便开发者阅读，MiniExtend 每次更新都会包含最新的正确详尽的官方文档，当然也还有其它可读性更高的文档可供选择。
 
-该脚本文件位于地图文件夹中，辨别方式是**在脚本编辑器创建**，性质是该作用域下的文件总是在开发者<span title="这里忽略插件包，因为没有严谨测试">可编辑脚本</span>中最先执行。
+现在 MiniExtend 的总文档数据量比其它任何迷你世界脚本库都要多的多，但无需因此恐慌，你只需阅读其中的一部分即可学习完 MiniExtend 的全部内容。
 
-### UI 作用域
+### 唯一选择
 
-该脚本文件位于自定义 UI 界面文件夹中，辨别方式是**在 UI 编辑器中创建**，性质是该作用域下的文件晚于全局作用域下的脚本文件执行。
+目前 MiniExtend 是**唯一的**免费开源的迷你世界 Lua 库，网上找到的其它公开的迷你世界代码往往没有明示许可。
 
-该作用域下的脚本可以使用 `ScriptSupportEvent` 监听所属 UI 界面的事件，但全局作用域和其它 UI 作用域无法使用它们的 `ScriptSupportEvent` 来监听该 UI 界面的事件。
+但这并不是一件好事，它意味着许多开发者没有想过或不愿公开他们的代码，这会导致开发成本提升，整体开发水平停滞，不利于创建良好的游戏开发生态。
 
-### 游戏帧
+我们希望开发者们能像 MiniExtend 一样，愿意公开应该被公开的开发成果，共建良好迷你世界开源生态。
 
-详见 [wiki](https://github.com/Mini-World-Dev-Org/Mini-World-Wiki/wiki/mechanism-tick) 。
+## 使用 MiniExtend
 
+作者会维护比较准确详细的[开发文档](https://0-0000.github.io/MiniExtend/)，文档会指引你搭建 MiniExtend 环境和使用 MiniExtend 。
 
-## 代码规范
+你现在看到是[@凯凯本凯](https://github.com/kaikaibenkai) 整理优化后的版本，同样[以 MIT License 开源](https://github.com/kaikaibenkai/MiniExtendDoc)。
 
-非常重要！
+> 如果你也想编写 MiniExtend 文档：
+>
+> **Fork** 一份 [MiniExtend 的 `docs` 分支](https://github.com/0-0000/MiniExtend/tree/docs) ，然后自由发挥！
+>
+> 如果你的文档内容完整且较为准确，你可以联系[作者](https://github.com/0-0000)推荐你的文档。
 
-- 所有含可变参数 `...` 的 MiniExtend 函数都会正常解析 `...` 开头和中间的 `nil` ，但末尾的 `nil` 是意外。
+## 致开发者
 
-  原因是发生了数据碰撞，无论在末尾添加几个 nil ，函数内得到的输入都是相同的。
+无论你的 Pull Request 质量如何，很高兴你能为 MiniExtend 开发做贡献！
 
-  例如 `Log.log(nil, 8, nil)` 输出 `nil` 和 `8`，但函数不知道第 3 个参数的存在，所以第 3 个 nil 不会输出。
+如果你想开发 MiniExtend 代码：
 
-- 总是使用 `.` 访问作用域的静态函数，使用 `:` 访问类函数（包括构造函数）。
+> - 把开发重点放在**基础**或**重要**的功能上。
+> - 代码开头标记你的更改（或创建）。
 
-- 除非明确指明可以修改对象属性或修改它的作用，不要修改这个属性，否则可能导致错误。
+## 附加链接
 
-- MiniExtend 没有严格的保护函数和对象属性的机制，意外地修改（例如传入类型错误地实参）可能导致错误。
-
-- 除非有特别说明会检查你调用函数时的参数，MiniExtend 不会检查参数是否正确，请务必保证实参的正确性！
-
----
-
-## 代码实例
-
-本文档包含了一些代码实例，让它们正确运行的前提是你已经**搭建好 MiniExtend 环境**。
-
-首先必须注意使用 `Env.__init__()` 初始化脚本环境。
-
-对于与 UI 相关的实例，要求搭建 UI 环境，在代码开头会列出一些局部变量，表示 UI 界面或元件的 id ，不要忘记**替换它们**！
-
----
-
-### 文档图片
-
-文档中的图片可能**不完全适用于新版本的 MiniExtend** ，也就是这些图片可能来自就版本的 MiniExtend 但没有同步更新。
-
-每次都同步更新这些图片实在是太复杂了，但这些来自旧版本的图片与理想的新图片差距不会太大。
-
-如果你发现图片严重不符实际，可以 [Create issue](https://github.com/0-0000/MiniExtend/issues/new) 通知开发者。
-
----
-
-### 关键字
-
-以下是 MiniExtend 关键字，不要使用它们作为自己的标识符。
-
-全局函数：
-
-- `loadstring2`
-- `deepcopy`
-- `getTick`
-- `scheduleCall`
-- `nextTick`
-- `cancelScheduleCall`
-- `getObjectId`
-- `setObjectId`
-- `registerEvent`
-- `cancelRegisterEvent`
-
-全局表：
-
-- `genv`
-- `_G2`
-
-全局作用域/类：
-
-- `Env`
-- `Log`
-- `Timer`
-- `UI`
+- [MiniWorld Development Organiztion](https://github.com/Mini-World-Dev-Org/)
+迷你世界开发组织
+- [MiniWorld Wiki](https://github.com/Mini-World-Dev-Org/Mini-World-Wiki/wiki/)
+迷你世界 Wiki
+- [MiniWorldGenv](https://github.com/Mini-World-Dev-Org/MiniWorldGenv/)
+研究迷你世界的内部脚本环境 `genv` 。
+- [Lua 教程 | 菜鸟教程](https://www.runoob.com/lua/lua-tutorial.html)
+可通过该教程入门学习 lua 。
+- [Lua 5.1 Reference Manual - contents](http://www.lua.org/manual/5.1/)
+入门后建议通过该手册进阶学习 lua 。
+- QQ群 [MiniExtend 开源库](https://jq.qq.com/?_wv=1027&k=PfLcOMQw)

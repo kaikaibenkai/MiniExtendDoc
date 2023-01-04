@@ -68,7 +68,7 @@ MiniExtend 自定义事件名在 `event.lua` 中的 `CustomEvents`（局部变�
 
 如果为 MiniExtend 自定义事件名，则 `msgStr = CustomEvents[eventname]` 。否则，`msgStr = eventname` 。
 
-### 自定义事件名列表
+### 自定义事件名
 
 - `$ui.onShow`：UI 界面显示，对应 `UI.Show` 。
 - `$ui.onHide`：UI 界面隐藏，对应 `UI.Hide` 。

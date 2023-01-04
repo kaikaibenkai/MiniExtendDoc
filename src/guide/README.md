@@ -9,7 +9,7 @@ title: 快速上手
 ## 开始学习
 
 - [简介与约定](/guide/starter.html)
-- [MiniExtend 搭建环境](/guide/environment.html)
+- [环境搭建](/guide/environment.html)
 
 ## 深入学习
 

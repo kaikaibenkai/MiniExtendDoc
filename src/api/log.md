@@ -8,10 +8,6 @@ title: 日志管理 Log
 
 对应源文件：`Log.lua`。
 
----
-
-## `Log` 作用域
-
 这里的 Log 指日志：
 
 ![日志界面](/static/console.png)
@@ -40,7 +36,7 @@ title: 日志管理 Log
 
 输出日志，以 `"global"` 为标签。
 
-等价于 `Log.logtag("global", ...)` ，格式化方法与 `print` 函数相同。
+等价于 `Log.logtag("global", ...)` ，格式化方法与原生 Lua 中的 `print` 函数相同。
 
 ```lua
 ---@param ...data any 输出的内容
@@ -77,10 +73,14 @@ function Log.warn(message) end
 function Log.error(message) end
 ```
 
-### `clear`<Badge type="warning">不稳定</Badge>
+### `clear`
 
 清空日志。
 
 ```lua
 function Log.clear() end
 ```
+
+> 日志清空功能存在 bug 。
+> 
+> 例如在观测空的日志界面时日志输出一条信息的话，背景会正确变化，信息却不会显示，切换日志 tag 刷新显示的日志后会正确显示。
