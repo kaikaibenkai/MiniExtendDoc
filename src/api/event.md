@@ -71,16 +71,20 @@ MiniExtend 自定义事件名在 `event.lua` 中的 `CustomEvents`（局部变�
 ### 自定义事件名列表
 
 - `$ui.onShow`：UI 界面显示，对应 `UI.Show` 。
-- `$ui.onHide`：UI 界面隐藏，对应 `UI.Show` 。
-- `$ui.onPress`：按钮按下，对应 `UI.Show` 。
-- `$ui.onClick`：按钮点击，对应 `UI.Show ` 。
-- `$ui.onLostFocus`：输入框失去焦点，对应 `UI.Show` 。
+- `$ui.onHide`：UI 界面隐藏，对应 `UI.Hide` 。
+- `$ui.onPress`：按钮按下，对应 `UI.Button.TouchBegin` 。
+- `$ui.onClick`：按钮点击，对应 `UI.Button.Click` 。
+- `$ui.onLostFocus`：输入框失去焦点，对应 `UI.LostFocus` 。
 
 你会发现这些自定义事件名描述的都是 UI 事件，实际上通常通过 [MiniExtend UI](/api/ui.html) 监听这些事件。
 
-::: tip 点击 = 按下 + 释放
+::: tip 一些易混淆的事件
 
-按下事件不是延续性事件，只会在玩家开始按下的那一帧触发。
+在按钮按下的**第一帧**触发 `UI.Button.TouchBegin` 事件，松开后触发 `UI.Button.Click` 事件。
+
+若按下按钮后，拖到按钮外再松开，则不视作松开，也不会触发点击事件。
+
+`UI.LostFocus` 可以认为是输入完成。
 
 :::
 
