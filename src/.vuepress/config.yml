@@ -13,9 +13,9 @@ themeConfig:
     - /guide/
     - /guide/starter
     - /guide/environment
-    -
-      title: MiniExtend API
+    - title: MiniExtend API
       children:
+        - /api/
         - /api/core
         - /api/log
         - /api/time
