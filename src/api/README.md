@@ -8,8 +8,10 @@ title: 简介与约定
 
 ## 代码规范
 
-- 如果没有说明对象属性的意义，不要修改这个属性，否则可能导致错误。
-- MiniExtend 不经常检查参数是否正确，请保证实参的正确性！
+- MiniExtend 的所有函数都无法获得 `...` 末尾的 `nil` 。
+- 使用 `.` 访问作用域的静态函数，使用 `:` 访问类函数。
+- 未明确声明可写的成员变量，不要修改，否则可能导致错误。
+- 未明确声明检查参数时，MiniExtend 不检查参数，因此请保证参数正确。
 
 ## 定义
 
@@ -65,6 +67,14 @@ UI 作用域下的脚本可以使用 `ScriptSupportEvent` 监听所属 UI 界面
 
 对于延续性事件（例如玩家挖掘方块），每一帧会触发一次事件，这也体现了游戏帧的意义。
 
+### `genv`
+
+见 [wiki](https://github.com/Mini-World-Dev-Org/Mini-World-Wiki/wiki/script) 。
+
+### `_GScriptFenv_`
+
+见 [wiki](https://github.com/Mini-World-Dev-Org/Mini-World-Wiki/wiki/script) 。
+
 ### UI 事件
 
 自定义 UI 中才会发生的事件，原生 UI 事件包括：
@@ -83,7 +93,7 @@ UI 作用域下的脚本可以使用 `ScriptSupportEvent` 监听所属 UI 界面
 
 ::: tip
 
-对于 UI 示例，在代码开头会列出一些局部变量，表示 UI 界面或元件的 id ，**不要忘记替换它们**！
+对于 UI 示例，在代码开头会列出一些局部变量，表示 UI 界面或元件的 ID ，**不要忘记替换它们**！
 
 :::
 
@@ -91,16 +101,27 @@ UI 作用域下的脚本可以使用 `ScriptSupportEvent` 监听所属 UI 界面
 
 以下是 MiniExtend 关键字，避免意外地使用它们作为自己的标识符，改变脚本添加的函数的意义不会影响 MiniExtend 的使用，但有的 API 可能会使用这些函数从而导致脚本无法正常运行。
 
-- 脚本添加的函数：
-  - `copy_tableisTypeError`
-  - `print_console`
-  - `printtag`
-  - `warn`
-- MiniExtend 全局函数
-  - `getObjectId`
-  - `setObjectId`
-- MiniExtend 全局表/作用域/类
-  - `_G2`
-  - `Console`
-  - `CustomUI`
-  - `Event`
+全局函数：
+
+- `loadstring2`
+- `deepcopy`
+- `getTick`
+- `scheduleCall`
+- `nextTick`
+- `cancelScheduleCall`
+- `getObjectId`
+- `setObjectId`
+- `registerEvent`
+- `cancelRegisterEvent`
+
+全局表：
+
+- `genv`
+- `_G2`
+
+全局作用域、类：
+
+- `Env`
+- `Log`
+- `Timer`
+- `UI`
