@@ -11,5 +11,5 @@ features:
     details: 共建迷你世界开源生态
   - title: 开发者友好
     details: 更贴近正常编程的体验
-footer: Copyright © 2022 kaikaibenkai
+footer: Copyright © 2022-2023 kaikaibenkai
 ---

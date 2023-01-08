@@ -4,78 +4,106 @@ title: 事件管理 Event
 
 
 
-# miniExtend Event
+# MiniExtend Event
 
-对应源文件： `event.lua` 。
+对应源文件：`event.lua`、`ui_main.lua`。
 
-本文件更好地实现了 `ScriptSupportEvent` ，且支持 [miniExtend Object](/api/object) 。
+MiniExtend Event 的前身是 `ScriptSupportEvent` ，但更便于使用，支持 [MiniExtend Object](/api/object.html) 。
 
 ## 函数介绍
 
-### `connect`
-
-该函数是 miniExtend Event 的核心，用于监听游戏事件，在事件发生时回调函数。
-
-该函数调用了 `ScriptSupportEvent:registerEvent(msgStr, func)` 。
-
-函数原型：
+### `registerEvent`
 
 ```lua
-function Event:connect(eventname, callback [, uiid])
-  -- 处理一些特殊逻辑
-  ScriptSupportEvent:registerEvent(eventname, callback)
-end
+---本函数检查参数！
+---@param eventname string 事件名称
+---@param callback fun():any 事件触发回调
+---@param uiid 如果是 UI 事件，提供界面 ID
+function registerEvent(eventname, callback [, uiid]) end
 ```
 
-|参数名|类型|简介|检查|
-|:---:|:---:|:---:|:---:|
-|`eventname`|[支持的事件](#事件列表)|监听的事件名||
-|`callback`|`function([param])`|事件发生后调用的函数||
-|`uiid`|`string`|要监听的 UI 界面 ID|:heavy_check_mark:|
+监听游戏事件，在 `eventname` 所描述的事件发生时，回调 `callback` 。
+返回描述事件监听的 [`Register` 表](#register)，用于取消事件监听。
 
+如果 `eventname` 所描述的事件为 [UI 事件](./document.html#UI-事件)，需要指定 `uiid` 需要监听的 UI 界面 id 。
 
-回调函数调用时，还传递一个 `table` 作为参数（以下简称 `param` ），包含事件相关信息。
+监听 UI 事件会发生预绑定，常规流程（在第 0 帧和 `ui_main` 脚本前）不会真的监听事件，而是将信息存储在返回的 `Register` 表中（不含 `id` 值，暂存了临时值）。
 
-`param` 包含 `ScriptSupportEvent:registerEvent` 传递的参数。除此之外，还包含一个 `listener` ，表示监听该事件的 `Event.Listener` 对象。
+在对应的 `ui_main` 脚本执行后会完成绑定并完成 `Register` 表（移除临时值，赋值 `id`），在中途修改返回的 `Register` 可能导致错误。
 
-调用回调函数前，miniExtend 会隐式设置 `objid` 的值为 `param["eventobjd"]` 。根据 `setObjectId()` 函数的行为，如果不包含那个键，那么 `objid` 的值不会被设置。
+该函数是 MiniExtend Event 的核心。
 
-## 类介绍
+该函数的原型为 `ScriptSupportEvent:registerEvent` 。
 
-### `Event.Listener`
+回调是以**保护模式**运行的，如果发生错误，会输出错误信息，带上自定义的错误头。
 
-又名“事件监听器”。
+回调函数调用时，还会传递一个哈希表作为参数，以下简称 `param` ，存储着该事件发生时的一些信息。
 
-本类用于管理事件监听，每次调用 `Event:connect` 会创建并返回一个监听器。监听器包含了该监听的一些信息，并提供了取消监听的方法。
+`param` 就是 `ScriptSupportEvent:registerEvent` 回调函数传递的参数，详见[官方文档](https://developers.mini1.cn/wiki/event.html)。
 
-成员变量：
+但除此之外， `param` 还必包含一个 `register` ，表示事件监听对应的 `Register` 表。
 
-|名称|类型|简介|可写|
-|:---:|:---:|:---:|:---:|
-|`callBack`|`function`|事件发生时要回调的函数|:heavy_check_mark:|
-|`id`|`number`|事件ID||
-|`eventname`|`string`|创建时传的`eventname`参数||
-|`msgStr`|`string`|事件在迷你世界 API 中的名称||
+回调函数前会提前隐式地设置 `objid` 的值为 `param["eventobjd"]` ，在回调结束后会恢复 `objid` 的值。
 
-成员函数：
+### `cancelRegisterEvent`
 
 ```lua
--- 该函数只取消监听，不会删除对象本身。
--- 如果需要删除对象，请让Lua 垃圾回收器处理。
-function Event.Listener:delete() end
+---@param register Register[] 需要取消的监听
+function cancelRegisterEvent(register) end
 ```
 
-## 事件列表
+取消事件监听。
 
-- [官方开放的事件](https://dev-wiki.mini1.cn/cyclopdeia?wikiMenuId=3&wikiId=1353)。
-- `ui.show` ：等价于 `UI.Show` ， UI 界面显示。
-- `ui.hide` ：等价于 `UI.Hide` ， UI 界面隐藏。
-- `ui.onPress` ：等价于 `UI.Button.TouchBegin` ，按钮被按下，注意该事件不是持续性事件。
-- `ui.onClick` ：等价于 `UI.Button.Click` ，按钮被点击。
-- `ui.onInput` ：等价于 `UI.LostFocus` ，输入框失去焦点。
+## 自定义事件名
 
-::: tip 对于等价的事件
+下文将事件名称为 `eventname` ，原始事件名称为 `msgStr` 。
 
-应该优先选择 miniExtend 拓展的事件名，这会有更好的可读性。
+需要使用 `msgStr` 作为参数调用 API ，但 MiniExtend 提供了更简短，可读性更高的自定义事件，于是就有了 `eventname` ，它作为调用 `registerEvent` 时实际传入的参数。
+
+既可以使用 MiniExtend 自定义事件名，也可以使用 API 事件名。 
+
+MiniExtend 自定义事件名在 `event.lua` 中的 `CustomEvents`（局部变量) 中定义。
+
+如果 `eventname` 以 `"$"` 开头，则认为其为 MiniExtend 自定义事件名，否则为 API 事件名。
+
+如果为 MiniExtend 自定义事件名，则 `msgStr = CustomEvents[eventname]` 。否则，`msgStr = eventname` 。
+
+### 自定义事件名
+
+- `$ui.onShow`：UI 界面显示，对应 `UI.Show` 。
+- `$ui.onHide`：UI 界面隐藏，对应 `UI.Hide` 。
+- `$ui.onPress`：按钮按下，对应 `UI.Button.TouchBegin` 。
+- `$ui.onClick`：按钮点击，对应 `UI.Button.Click` 。
+- `$ui.onLostFocus`：输入框失去焦点，对应 `UI.LostFocus` 。
+
+你会发现这些自定义事件名描述的都是 UI 事件，实际上通常通过 [MiniExtend UI](/api/ui.html) 监听这些事件。
+
+### `Register`<Badge text="虚拟" type="warning"/>
+
+::: tip
+
+注意 `Register` 表是 MiniExtend 理论中的一个表，`_GScriptFenv_["Register"]` 为 `nil` 。
 
 :::
+
+`Register` 表是 `registerEvent` 的返回值，用于作为 `cancelRegisterEvent()` 的参数来取消事件监听。
+
+不要修改 `Register` 表的值，仅将整个表作为参数调用 `cancelRegisterEvent()`，以下内容只是为了方便开发者。
+
+| 成员键 | 类型 | 说明 | 可读 | 可写 |
+| :-: | :-: | :-: | :-: | :-: |
+| `id` | `integer` | 监听实例 ID | √ | |
+| `uiId` | `string  |  nil` | UI 界面 ID ，非 UI 事件则为 `nil` | √ | |
+| `msgStr` | `string` | API 事件名 | √ | |
+| `callback` | `function` | 回调函数 | 预绑定时 | |
+| `eventName` | `string` | 调用时传递的 `eventname` | 预绑定时 | |
+
+## 易混淆的事件
+
+在按钮按下的**第一帧**触发 `UI.Button.TouchBegin` 事件，松开后触发 `UI.Button.Click` 事件。
+
+若按下按钮后，拖到按钮外再松开，则不视作松开，也不会触发点击事件。
+
+`UI.LostFocus` 可以认为是输入完成。
+
+对于打开时不呼出鼠标的界面，PC 端可按下 `ESC` 关闭，触发 `UI.Hide` 事件。

@@ -1,293 +1,336 @@
 ---
-title: UI 管理 CustomUI
+title: 界面管理 UI
 ---
 
 
 
-# miniExtend CustomUI
+# MiniExtend UI
 
-对应源文件： `ui.lua` 。
+对应源文件：`ui.lua`
 
-原型为 `Event` ，但以面相对象方式描述界面与元件，且支持 [miniExtend Object](/api/object.html) 。
+MiniExtend UI 前身为 `Customui` ，但以面向对象方式描述界面与元件，且支持 [MiniExtend Object](./object.html) 。
 
-::: tip
+## 约定
 
-大多数 `CustomUI` 下的函数都会包含一个 `playerid` 参数，它表示要响应该改变的<span title="通常为玩家的迷你号，单人模式下可以传递为 0 表示那个唯一玩家">玩家 ID</span>。
+大多数 `UI` 下的函数都会包含一个 `playerid` 可选参数，它表示响应该操作的玩家 id 。该参数不会被检查，如果 `playerid` 的布尔值为 `false` ，则以 `objid` 代替。
 
-该参数不会被检查，如果 `playerid` 非逻辑真，则以 `objid` 代替。
+`UI` 下的所有未表明返回值的函数或方法，一律返回 `true` 表示<span title='调用 API 成功不一定代表函数正确工作'>调用 API 成功</span>，返回 `false` 表示<u title='有任何一部分执行失败，即视为全部失败'>失败</u>。
 
-:::
+## 函数介绍
 
-`CustomUI` 下的所有未表明返回值的函数或方法，一律返回 `true` ，表示<span title="调用 API 成功不一定代表函数正确工作">调用成功</span>。如果返回 `false` ，表示<span title="部分失败也视为函数失败">调用失败了</span>。
+### `UI.getRootSize`
 
-## 子类介绍
-
-### 子类之间的关系
-
-|子类|简介|继承|具象|
-|:---:|:---:|:---:|:---:|
-|`UIView`|界面||:heavy_check_mark:|
-|`Element`|元件||:x:|
-|`Image`|图片元件|`Element`|:heavy_check_mark:|
-|`Button`|按钮元件|`Image`|:heavy_check_mark:|
-|`Text`|文字元件|`Element`|:heavy_check_mark:|
-|`EditBox`|输入框元件|`Text`|:heavy_check_mark:|
-
-::: details 什么是具象类？
-
-> 具象类是可以构造实例的类，其所有方法都已给出实现。<br/>
-  非具象类是抽象类，抽象类不能构造实例，仅用于规范继承者的行为。<br/>
-  当然，继承抽象类后，如果实现了其未实现的方法，就能成为具象类了。
-
-在 Lua 中，并没有提供像 C++ 那样严谨的机制。
-
-但程序设计需要它，所以就有了这一段。
-
-:::
-
-### `CustomUI.UIView` 类
-
-一个 `CustomUI.UIView` 对象代表了一个 UI 界面。
-
-构造函数：
+获取自定义 UI 界面的大小。
 
 ```lua
--- 函数返回一个 `CustomUI.UIView` 对象
--- 其 `id` 属性为 `uiid` 。
-function CustomUI:newUIView(uiid) end
+---@return float, float 宽和高
+function UI:getRootSize() end
 ```
 
-参数：
+返回的是服务器上定义的 UI 界面大小，例如在多人游戏中调用 `UI:getRootSize()` 会返回房主（或者云服务器）的 UI 界面大小。
 
-|参数名|类型|简介|检查|
-|:---:|:---:|:---:|:---:|
-|`uiid`|`string`|UI 界面 ID||
+### `UI` 下的类之间的关系
 
-::: tip uiid 用于唯一性判断。
+| 类名 | 类描述 | 父类 | 具象 |
+| :-: | :-: | :-: | :-: |
+| UIView | UI 界面 | 无 | √ |
+| Element | UI 元件 | 无 | × |
+| Texture | UI 图片 | Element | √ |
+| Button | UI 按钮 | Texture | √ |
+| Label | UI 文字 | Element | √ |
+| EditBox | UI 输入框 | Label | √ |
 
-如果 `uiid` 参数相同，构造两次 `CustomUI.UIView` 对象，等价于构造一次。
+### `UI.UIView`
 
-:::
-
-成员变量：
-
-|名称|类型|简介|可写|
-|:---:|:---:|:---:|:---:|
-|`id`|`string`|UI 界面 ID||
-|`showCallback`|`function` \| `nil`|界面显示时调用的函数||
-|`hideCallBack`|`function` \| `nil`|界面关闭时调用的函数||
-|`images`|`table<Image>`|属于该界面的图片元件||
-|`buttons`|`table<Button>`|属于该界面的按钮元件||
-|`texts`|`table<Text>`|属于该界面的文字元件||
-|`editBoxes`|`table<EditBox>`|属于该界面的输入框元件||
-
-桌面端玩家可能会按下 `Esc` 键来意外退出 UI 界面，所以 `hideCallBack` 应是常用的的。
+UI 界面，以下简称 `UIView` 。
 
 成员函数：
 
 ```lua
--- 对玩家打开该界面。
-function CustomUI.UIView:show([playerid]) end
--- 对玩家关闭该界面。
-function CustomUI.UIView:hide([playerid]) end
--- 修改所有子元件的状态。
-function CustomUI.UIView:setState(state [, playerid]) end
--- 创建或获取 ID 为 `elementid` 的 `Image` 对象。
-function CustomUI.UIView:newImage(elementid) end
--- 创建或获取 ID 为 `elementid` 的 `Button` 对象。
-function CustomUI.UIView:newButton(elementid) end
--- 创建或获取 ID 为 `elementid` 的 `Text` 对象。
-function CustomUI.UIView:newText(elementid) end
--- 创建或获取 ID 为 `elementid` 的 `EditBox` 对象。
-function CustomUI.UIView:newEditBox(elementid) end
+---构造一个 UIView 对象。
+---@param uiid string 指定该 UI 界面的 ID（不检查可用性）
+---@return UI.UIView
+function UI.UIView:new(uiid) end
 ```
 
-### `CustomUI.Element` 类
-
-一个 `CustomUI.Element` 对象代表一个 UI 元件。
-
-**这是一个抽象类，无法构造对象示例**，应该构造其子类的实例。
-
-使用 `CustomUI.UIView` 对象的最后四个方法来创建元件对象。
+函数返回值有缓存，如果 `uiid` 相同，返回之前构造的对象。
 
 成员变量：
 
-|名称|类型|简介|可写|
-|:---:|:---:|:---:|:---:|
-|`uiView`|`table<UIView>`|所属的界面||
-|`id`|`string`|元件 ID||
+| 名称 | 类型 | 简介 | 可读 | 可写 |
+| :-: | :-: | :-: | :-: | :-: |
+| `id` | `string` | UI 界面 ID | √ | |
+| `showEvent` | `function` \| `nil` | 界面显示时的回调 | √ | √ |
+| `hideEvent` | `function` \| `nil` | 界面隐藏时的回调（ PC 端可按下 `ESC` 触发） | √ | √ |
 
 成员函数：
 
 ```lua
--- 对玩家打开该界面。
-function CustomUI.Element:show([playerid]) end
--- 对玩家关闭该界面。
-function CustomUI.Element:hide([playerid]) end
--- 修改元件显示状态。
--- 显示为`true`，否则隐藏。
-function CustomUI.Element:setDisplay(state [, playerid]) end
--- 修改元件的状态。
-function CustomUI.Element:setState(state [, playerid]) end
--- 如果 `x` 不为 `table` 类型，调用该重载函数。
--- 设置元件位置。
-function CustomUI.Element:setPosition(x, y [, playerid]) end
--- 否则调用该重载函数。
--- 设置元件位置为 `positon["x"] or position[1], position["y"] or position[2]`。
--- 如果 `width` 不为 `table` 类型，调用该重载函数。
--- 设置元件宽度、高度。
-function CustomUI.Element:setSize(width, height [, playerid]) end
--- 否则调用该重载函数。
--- 设置元件宽度为 `size["width"] or size[1]` ，高度为 `size["height"] or size[2]` 。
-function CustomUI.Element:setSize(size [, playerid]) end
--- 旋转元件至 `angle`:`number` 角度。
--- 以元件位置为旋转点顺时针旋转 `angle` 度得到旋转后的元件。
-function CustomUI.Element:setAngle(angle [, playerid]) end
--- 设置元件 RGB 颜色为 `color` ，取值范围为 `0x000000` ~ `0xffffff`。
--- 对于 `0xRrGgBb` 的 `color` 参数，则红色值为 `0xRr` ，绿色值为 `0xGg` ，蓝色值为 `0xBb` 。
-function CustomUI.Element:setColor(color [, playerid]) end
--- 设置元件透明度为 `alpha`:`number` ， 取值范围为 `0`~`100` 。
--- 0 为完全透明， 100 为完全不透明。
-function CustomUI.Element:setAlpha(alpha [, playerid] end
+---打开 UI 界面。
+---@param playerid integer 目标玩家
+---@return boolean 是否成功
+function UI.UIView:show([playerid]) end
+
+---隐藏（关闭）UI 界面。
+---@param playerid integer 目标玩家
+---@return boolean 是否成功
+function UI.UIView:hide([playerid]) end
 ```
 
-### `CustomUI.Image` 类
-
-一个 `CustomUI.Image` 对象代表一个 UI 图片元件。
-
-构造函数：
 ```lua
-function CustomUI.CustomUI:newImage(elementid) end
+---修改该 UI 界面的所有子元件的状态。
+---@param state string 界面状态
+---@param playerid integer 目标玩家
+---@return boolean 是否成功
+function UI.UIView:setState(state [, playerid]) end
 ```
+
+```lua
+---构造一个 `UI.Texture` 对象。
+---@param elementid string 元件 ID
+---@return UI.Texture
+function UI.UIView:newTexture(elementid) end
+
+---构造一个 `UI.Button` 对象。
+---@param elementid string 元件 ID
+---@return UI.Button
+function UI.UIView:newButton(elementid) end
+
+---构造一个 `UI.Label` 对象。
+---@param elementid string 元件 ID
+---@return UI.Label
+function UI.UIView:newLabel(elementid) end
+
+---构造一个 `UI.EditBox` 对象。
+---@param elementid string 元件 ID
+---@return UI.EditBox
+function UI.UIView:newEditBox(elementid) end
+```
+
+### `UI.Element`
+
+UI 元件，以下简称 `Element` 。
+
+该类是抽象类，不能直接构造 `Element` 对象，应构造 `Element` 子类的对象。
+
+成员变量：
+
+| 名称 | 类型 | 简介 | 可读 | 可写 |
+| :-: | :-: | :-: | :-: | :-: |
+| `uiView` | `UIView[]` | 所属 UI 界面 | √ | |
+| `id` | `string` | 元件 ID | √ | |
 
 成员函数：
 
 ```lua
--- 设置图片的纹理为 `url` 。
--- 可通过 "ID库" -"图片" 来获取 `url` 。
-function CustomUI.Image.setTexture(url [, playerid]) end
+---显示元件。
+---@param elementid string 元件 ID
+---@param playerid integer 目标玩家
+---@return boolean 是否成功
+function UI.Element:show([playerid]) end
+
+---隐藏元件。
+---@param elementid string 元件 ID
+---@param playerid integer 目标玩家
+---@return boolean 是否成功
+function UI.Element:hide([playerid]) end
 ```
-
-### `CustomUI.Button` 类
-
-一个 `CustomUI.Button` 对象代表一个 UI 图片元件。
-
-构造函数：
 
 ```lua
-function CustomUI.CustomUI:newButton(uiid) end
+---显示或隐藏元件。
+---@param display boolean 为真，显示；否则，隐藏
+---@param playerid integer 目标玩家
+---@return boolean 是否成功
+function UI.Element:setDisplay(display [, playerid]) end
 ```
-
-::: tip
-
-你可以对一个按钮元件使用 `CustomUI.UIView:newImage(elementid);` 来获取一个 `CustomUI.Image` 对象并把元件当做图片操作，但是不建议这么做，对于 `CustomUI.Text` 和 `CustomUI.EditBox` 也如此。
-
-:::
-
-成员变量：
-
-|名称|类型|简介|可写|
-|:---:|:---:|:---:|:---:|
-|`clickCallBack`|`function` \| `nil`|按钮点击后的回调|:heavy_check_mark:|
-|`pressCallBack`|`function` \| `nil`|按钮按下后的回调|:heavy_check_mark:|
-
-::: tip 不要混淆这些事件
-
-点击 = 按下 + 松开。
-
-:::
-
-### `CustomUI.Text` 类
-
-一个 `CustomUI.Text` 对象代表一个 UI 文本元件。
-
-构造函数：
 
 ```lua
-function CustomUI.UIview:newText(uiid) end
+---修改元件状态。
+---@param state string 状态
+---@param playerid integer 目标玩家
+---@return boolean 是否成功
+function UI.Element:setState(state [, playerid]) end
 ```
+
+```lua
+---修改元件位置。
+---@param x number 位置 x 坐标
+---@param y number 位置 y 坐标
+---@param playerid integer 目标玩家
+---@return boolean 是否成功
+function UI.Element:setPosition(x, y [, playerid]) end
+
+---修改元件大小。
+---@param width number 元件宽度
+---@param height number 元件高度
+---@param playerid integer 目标玩家
+---@return boolean 是否成功
+function UI.Element:setSize(width, height [, playerid]) end
+
+---将原始元件（旋转0°）绕其位置顺时针旋转 `angle` 度。
+---@param angle number 旋转度数
+---@param playerid integer 目标玩家
+---@return boolean 是否成功
+function UI.Element:setAngle(angle [, playerid]) end
+```
+
+```lua
+---@param color integer 元件 RGB 颜色（ `0x000000` ~ `0xffffff` ）
+---修改元件颜色。
+---@param playerid integer 目标玩家
+---@return boolean 是否成功
+function UI.Element:setColor(color [, playerid]) end
+
+---修改元件透明度。
+---@param alpha number 元件透明度（0为完全透明，100为完全不透明）
+---@param playerid integer 目标玩家
+---@return boolean 是否成功
+function UI.Element:setAlpha(alpha [, playerid]) end
+```
+
+### `UI.Texture`
+
+UI 图片元件，以下简称 `Texture` 。
+
+```lua
+---构造一个 Texture 对象。
+---@param uiview UI.UIView[] 所属界面
+---@param elementid string 元件 ID
+---@return UI.Texture
+function UI.Texture:new(uiview, elementid) end
+```
+
+等价于 `uiview:newTexture(elementid)` 。
 
 成员函数：
 
 ```lua
--- 设置文本元件的字体大小。
-function CustomUI.Text:setFontSize(size [, playerid]) end
--- 设置文本元件显示的文本。
--- 如果太长，似乎不会起作用。
--- 本 API 不会导致文本被屏蔽。
-function CustomUI.Text:setText(text [, playerid]) end
+---修改图片纹理。
+---@param url string 图案纹理 ID
+function UI.Texture:setTexture(url [, playerid]) end
 ```
 
-### `CustomUI.EditBox` 类
+游戏内可以通过 “ID库” → “图片” 获取图案纹理 ID 。
 
-一个 `CustomUI.EditBox` 对象代表一个 UI 输入框元件。
+### `UI.Button`
 
-构造函数：
+UI 按钮元件，以下简称 `Button` 。
 
 ```lua
-function CustomUI.UIView:newText(elementid) end
+---构造一个 Button 对象。
+---@param uiview UI.UIView[] 所属界面
+---@param elementid string 元件 ID
+---@return UI.Button
+function UI.Button:new(uiview, elementid) end
 ```
+
+等价于 `uiview:newButton(elementid)` 。
 
 成员变量：
 
-|名称|类型|简介|可写|
-|:---:|:---:|:---:|:---:|
-|`inputCallBack`|`function` \| `nil`|输入框失去焦点后的回调|:heavy_check_mark:|
+| 名称 | 类型 | 简介 | 可读 | 可写 |
+| :-: | :-: | :-: | :-: | :-: |
+| `pressEvent` | `function` \| `nil` | [按下按钮](/api/event.html#易混淆的事件)时的回调 | √ | √ |
+| `clickEvent` | `function` \| `nil` | [点击按钮](/api/event.html#易混淆的事件)时的回调 | √ | √ |
 
-::: tip
+### `UI.Label`
 
-在电脑上，输入框失去焦点即为输入完成。
+UI 文字元件，以下简称 `Label` 。
 
-:::
+```lua
+---构造一个 Label 对象。
+---@param uiview UI.UIView[] 所属界面
+---@param elementid string 元件 ID
+---@return UI.Label
+function UI.Label:new(uiview, elementid) end
+```
 
-## 示例
+等价于 `uiview:newLabel(elementid)` 。
 
-### 需求
+成员函数：
 
-一 UI 界面 `u` 下有一个输入框元件 `e` 和一个文本 `t` ，要求如下：
+```lua
+---修改显示文本。
+---@param text string 文本（不会被屏蔽，但不能太长）
+---@param playerid integer 目标玩家
+---@return boolean 是否成功
+function UI.Label:setText(text [, playerid]) end
 
-- 在玩家没有输入 `e` 时， `e` 总是显示 `"输入 16 进制数"` ，开始输入时 `e` 的内容清空。
-- `e` 完成输入时，尝试将其解释为 16 进制数，并转化为 10 进制数，并将结果反应在 `t`上。
-- 如果输入不合法，无法将其转化，则设置 `t` 的文本为 `"错误的输入"`。
+---修改字体大小。
+---@param size integer 字体大小
+---@param playerid integer 目标玩家
+---@return boolean 是否成功
+function UI.Label:setFontSize(size [, playerid]) end
+```
+
+### `UI.EditBox`
+
+UI 输入框元件，以下简称 `EditBox` 。
+
+```lua
+---构造一个 EditBox 对象。
+---@param uiview UI.UIView[] 所属界面
+---@param elementid string 元件 ID
+---@return UI.EditBox
+function UI.EditBox:new(uiview, elementid) end
+```
+
+等价于 `uiview:newEditBox(elementid)` 。
+
+成员变量：
+
+| 名称 | 类型 | 简介 | 可读 | 可写 |
+| :-: | :-: | :-: | :-: | :-: |
+| `lostFocusEvent` | [输入框失去焦点](/api/event.html#易混淆的事件)时的回调 || √ | √ |
+
+回调传递的输入框内容，会先被和谐处理。
+
+### 代码示例
+
+### 背景
+
+已知一 UI 界面 `u` 下有一个输入框元件 `e` 和一个文字元件 `l` ，要求如下：
+
+- 在玩家没有输入 `e` 时， `l` 总是显示 `"输入 16 进制数"` ，开始输入时 `e` 的内容清空 。
+- `e` 完成输入时，尝试将其解释为 16 进制数，并转化为 10 进制数，并将结果反应在 `l`上。
+- 如果输入不合法，无法将其转化，则设置 `l` 的文本为 `"错误的输入"` 。
 
 ### 分析
 
-- 要在开始输入时清空 `e` 的内容，需要处理一个 `ui.onClick` 事件。实现方法是再创建一个按钮元件，设为 `b` ，将 `e` 设为 `b` 的子集，调整 `b` 的外观并将使其刚好覆盖 `e` ，这样当玩家点击输入框开始输入时，也会触发按钮的点击事件，这时就能修改 `e` 的内容了。
+- 要在开始输入时清空 `e` 的内容，需要处理一个 `$ui.onClick` 事件。实现方法是再创建一个按钮元件，设为 `b` ，将 `e` 设为 `b` 的子集，调整 `b` 的外观并将使其刚好覆盖 `e` ，这样当玩家点击输入框开始输入时，也会触发按钮的点击事件(`clickEvent`)，这时就能修改 `e` 的内容了。
 - 经测试，当按钮被点击时焦点才会进入输入框，所以不要使用按下事件。
 - 使用 `tonumber(e [, base])` 函数来转化数字。
 
 ### 代码
 
-以下代码假设已经配置好 UI 相关环境了。
-
 ```lua
+Env.__init__()
 -- 需替换以下 id
-local uiview_id, editBox_id, text_id, button_id = [[]], [[]], [[]], [[]]
-uiview = CustomUI:newUIView(uiview_id)
+local uiview_id = [[]]
+local editBox_id = [[]]
+local label_id = [[]]
+local button_id = [[]]
+uiview = UI.UIView:new(uiview_id)
 editBox = uiview:newEditBox(editBox_id)
-text = uiview:newText(text_id)
+label = uiview:newLabel(label_id)
 button = uiview:newButton(button_id)
-
 -- 初始化
-Event:connect([[Game.AnyPlayer.EnterGame]], function(paprm)
+registerEvent([[Game.AnyPlayer.EnterGame]], function(param)
 	uiview:show()
-	text:setText("")
+	label:setText("")
 	editBox:setText("输入 16 进制数")
-end, uiid)
-
-button.clickCallBack = function(paprm)
+end)
+function button.clickEvent(param)
 	-- 清空输入框
 	editBox:setText("")
 end
-editBox.inputCallBack = function(paprm)
-	local num = tonumber(paprm["content"], 16)
+function editBox.lostFocusEvent(param)
+	local num = tonumber(param["content"], 16)
 	if num then
-		text:setText(tostring(num))
+		label:setText(tostring(num))
 	else
-		text:setText("错误的输入")
+		label:setText("错误的输入")
 	end
 	editBox:setText("输入 16 进制数")
 end
 ```
-
-代码短的有点难以置信，这其中最复杂的还是在 UI 界面下创建元件并初始化状态。

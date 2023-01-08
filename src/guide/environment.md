@@ -4,24 +4,24 @@ title: 环境搭建
 
 
 
-# miniExtend 环境搭建
+# MiniExtend 环境搭建
 
 ## 全局作用域
 
-关于作用域，参见[定义](./document.html)。
+关于作用域，参见[定义](/api/#脚本作用域)。
 
-在全局作用域下，按<span title="源代码开头显示了它们依赖的脚本">一定顺序</span>加入这些脚本。
+在全局作用域下，按<span title='源代码开头显示了它们依赖的脚本'>一定顺序</span>加入这些脚本。
 
 脚本对应源文件 = `<脚本名>` + `.lua` ，例如 `core` 脚本对应 `core.lua`。
 
 以下是一个合法的顺序，你可以按照该顺序来创建脚本：
 
-1. `core`
-2. `time`
-3. `console`
-4. `object`
-5. `event`
-6. `ui`
+1. core
+2. log
+3. time
+4. object
+5. event
+6. ui
 
 直接将源代码复制到脚本中即可，也可以使用加载文件按钮<img style='width: 33px; height: 23px;' src='/static/load-script-button.png' />来加载源代码。
 
@@ -31,7 +31,7 @@ title: 环境搭建
 
 ::: tip
 
-脚本、脚本组的命名不影响 miniExtend 正常运行，但良好的命名习惯有利于错误排查。
+脚本、脚本组的命名不影响 MiniExtend 正常运行，但良好的命名习惯有利于错误排查。
 
 如果没有做好命名，错误发生时会看到满屏的`[脚本]`。
 
@@ -55,11 +55,11 @@ UI_main 脚本示例：![](/static/ui-env-script.png)
 
 ## 创建自己的脚本
 
-做完以上操作，你已经成功搭建了 miniExtend 环境，现在可以新建脚本使用 miniExtend 功能了。
+做完以上操作，你已经成功搭建了 MiniExtend 环境，现在可以新建脚本使用 MiniExtend 功能了。
 
 ::: tip
 
-使用 miniExtend 的脚本**必须位于全局作用域下**，且**位置必须在 miniExtend 脚本之后**，否则无法正常使用 miniExtend 。
+使用 MiniExtend 的脚本**必须位于全局作用域下**，且**位置必须在 MiniExtend 脚本之后**，否则无法正常使用 MiniExtend 。
 
 :::
 
@@ -71,16 +71,17 @@ UI_main 脚本示例：![](/static/ui-env-script.png)
 
 该步骤是可选的。
 
-你可以在代码中插入 `ide.lua` 中的内容，里面包含了 miniExtend 关键字，这允许你的编辑器自动补全它们。
+你可以在代码中插入 `ide.lua` 中的内容，里面包含了 MiniExtend 关键字，这允许你的编辑器自动补全它们。
 
 ![在脚本中插入 ide.lua](/static/ide.png)
 
 ## Hello, World!
 
-接下来我们使用 miniExtend 监听“玩家动作改变”事件，事件发生时在日志以 `tag` 为标签输出 `Hello World!` 。
+接下来我们使用 MiniExtend 监听“玩家动作改变”事件，事件发生时在日志以 `tag` 为标签输出 `Hello World!` 。
 
 ```lua
-Event:connect([[Player.PlayAction]], function(paprm)
-  Console:logtag("tag", "Hello, world!");
+Env.__init__()
+registerEvent([[Player.PlayAction]], function(param)
+  Log.logtag(tostring(param["eventobjid"]), "Hello, world!");
 end)
 ```

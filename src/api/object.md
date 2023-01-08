@@ -4,80 +4,69 @@ title: 对象管理 Object
 
 
 
-# miniExtend Object
+# MiniExtend Object
 
 对应源文件： `object.lua` 。
 
-在阅读 [miniExtend Event](/api/event.html) 和 [miniExtend CustomUI](/api/ui.html) 前， 可能很难理解这部分的强大功能。这是很正常的。
+MiniExtend Object 主要是为 [MiniExtend Event](./event.html) 和 [MiniExtend UI](./ui.html) 设定的。
 
-目前 miniExtend Object 内容较少，且主要以理解为主。
+目前 MiniExtend Object 内容较少，且主要以理解为主。
 
-Object 的核心是 `_G2["__OBJID"]` ，以下简称 `objid` 。
+Object 的核心是一个叫 `objid` 的虚有值（其实是局部变量），`objid` 默认为 0 。
 
-在调用 miniExtend 的一些函数时， `objid` 会作为游戏对象默认参数（参数名以 `id` 结尾，如 `playerid`）。
+在调用 MiniExtend 的一些函数时， `objid` 会作为游戏对象 id 参数（参数名以*id*结尾，如 `playerid` ）的默认值。
+
+## 注意事项
+
+在延时调用中是不会有正确的 `objid` 值的，在 `registerEvent` 回调中要特别注意。
+
+因为在发动延时调用后，回调函数会正常结束，然后会恢复 `objid` 的值，这时已经失去了理想的 `objid` 的值。
 
 ## 函数介绍
 
-::: warning 没有 Object 作用域
-
-以下函数都是全局函数。
-
-:::
+以下函数都是在 `_GScriptFenv_` 中的全局函数。
 
 ### `getObjectId`
 
-返回 `objid` 的值。
-
-函数原型：
-
 ```lua
+---@return any 取到的值
 function getObjectId() end
 ```
 
-::: tip 为了更好的兼容性
-
-你应该使用 `getObjidId()` 函数获取 `objid` 的值，而不是直接从 `_G2` 中取。
-
-:::
+获取 `objid` 的值。
 
 ### `setObjectId`
 
-设置 `_G2["__OBJID"]` 的值。
-
 ```lua
-function setObjectId(objid) end
+---@param objectid integer 要设置的值
+function setObjectId(objectid) end
 ```
 
-|参数名|类型|简介|检查|
-|:---:|:---:|:---:|:---:|
-|`objid`|`any`|需要设置的新值||
+设置 `objid` 的值。
+
+## 代码示例
 
 ::: tip
 
-由于命名冲突，这里 `objid` 表示 `objid` 参数。
+对于 `UI.UIView:show` 函数，你可以不传递 `playerid` 参数调用该函数，这时 `objid` 将代替 `playerid` 参数。
+
+在 `registerEvent` 的回调中， `objid` 会被临时地设置为 `param["eventobjid"]` 。
 
 :::
 
-如果 `objid` 是一个数字，直接设置 `_G2["__OBJID"]` 为 `objid` ，不会检查 `objid` 是否合法。
+实例功能：玩家进入游戏后打开 `uiview` 界面。
 
-如果 `objid` 是一个表，且 `eventobjid` 键对应的值为 `number` 类型，设置 `_G2["__OBJID"]` 为 `objid["eventobjid"]` 。这在事件的回调中非常有用，只需传递回调函数的表参数，就能自动索引 `eventobjid` 键。
+```lua
+Env.__init__()
 
-## 示例
-
-对于[`CustomUI.UIView.show([playerid])`](/api/ui.html#UIView-show) ，你可以不传递 `playerid` 参数调用该函数，这时 `objid` 将代替 `playerid` 参数。
-
-以下代码假设你已经搭建好 miniExtend UI 环境了。
-
-示例功能：当任意玩家进入游戏时，玩家会打开 `uiview` 界面。
-
-```lua {7-9}
--- 需替换为 UI 界面 id
+---UI 界面 id
 local uiid = [[]]
 
-uiview = CustomUI:newUIView(uiid)
--- 任意玩家进入游戏事件
-Event:connect([[Game.AnyPlayer.EnterGame]], function(param)
-	-- 注意：objid 已被隐式地设置为 param.eventobjid
+---引用对应的 UI 界面
+uiview = UI.UIView:new(uiid)
+
+registerEvent([[Game.AnyPlayer.EnterGame]], function(param)
+	-- objid 已被隐式地设置为 param.eventobjid
 	-- 等价于调用 uiview:show(getObjectId())
 	uiview:show()
 end, uiid)

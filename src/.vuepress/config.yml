@@ -10,19 +10,19 @@ themeConfig:
     - text: API参考
       link: /api/
   sidebar:
-    /guide/:
-      - ./
-      - environment
-      - core
-    /api/:
-      - ./
-      - title: API 详细介绍
-        children:
-          - console
-          - object
-          - event
-          - time
-          - ui
+    - /guide/
+    - /guide/starter
+    - /guide/environment
+    - title: MiniExtend API
+      children:
+        - /api/
+        - /api/core
+        - /api/log
+        - /api/time
+        - /api/object
+        - /api/event
+        - /api/ui
+    - changelog
   nextLinks: true
   prevLinks: true
   repo: 0-0000/MiniExtend
