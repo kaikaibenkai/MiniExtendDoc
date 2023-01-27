@@ -18,11 +18,11 @@ title: 日志管理 Log
 
 <!--图片自动维持长宽比，故只需设定宽度-->
 
-在开发者工具中调整<img style="width: 52px;" src="/static/test-button.png" />至图示状态来启用日志。
+在开发者工具中调整<img style="width: 52px;" :src="$withBase('/static/test-button.png')" />至图示状态来启用日志。
 
-在玩法模式下按<img style="width: 20px;" src="/static/console-button.png" alt="“！”按钮" />来打开日志窗口。
+在玩法模式下按<img style="width: 20px;" :src="$withBase('/static/console-button.png')" alt="“！”按钮" />来打开日志窗口。
 
-按<img style="width: 54px;" src="/static/clear-console.png" alt="“清空日志”按钮" />清除日志。
+按<img style="width: 54px;" :src="$withBase('/static/clear-console.png')" alt="“清空日志”按钮" />清除日志。
 
 :::
 
