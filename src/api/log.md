@@ -10,7 +10,7 @@ title: 日志管理 Log
 
 这里的 Log 指日志：
 
-![日志界面](/static/console.png)
+<img :src="$withBase('/static/console.png')" />
 
 在控制台输出的信息几乎是不可见的，但是日志中的信息是可见的，所以需要在日志输出信息。
 

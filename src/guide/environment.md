@@ -27,7 +27,7 @@ title: 环境搭建
 
 完成后界面应如图所示（main 脚本组管理自己的脚本）：
 
-![](/static/global-scripts.png)
+<img :src="$withBase('/static/global-scripts.png')" />
 
 ::: tip
 
@@ -49,9 +49,13 @@ UI 界面创建时，对应作用域下会自动创建一个<span title="该触�
 
 :::
 
-UI 作用域下的脚本初始化后结果：![](/static/ui-scripts.png)
+UI 作用域下的脚本初始化后结果：
 
-UI_main 脚本示例：![](/static/ui-env-script.png)
+<img :src="$withBase('/static/ui-scripts.png')" />
+
+UI_main 脚本示例：
+
+<img :src="$withBase('/static/ui-env-script.png')" />
 
 ## 创建自己的脚本
 
@@ -65,7 +69,7 @@ UI_main 脚本示例：![](/static/ui-env-script.png)
 
 创建自己的脚本：
 
-![](/static/my-script.png)
+<img :src="$withBase('/static/my-script.png')" />
 
 ## 更高效的开发
 
@@ -73,7 +77,7 @@ UI_main 脚本示例：![](/static/ui-env-script.png)
 
 你可以在代码中插入 `ide.lua` 中的内容，里面包含了 MiniExtend 关键字，这允许你的编辑器自动补全它们。
 
-![在脚本中插入 ide.lua](/static/ide.png)
+<img :src="$withBase('/static/ide.png')" />
 
 ## Hello, World!
 
