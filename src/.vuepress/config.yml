@@ -29,5 +29,3 @@ themeConfig:
   docsRepo: kaikaibenkai/MiniExtendDoc
   docsDir: src
   docsBranch: main
-  editLinks: true
-  editLinkText: 修改此页面

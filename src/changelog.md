@@ -6,11 +6,9 @@ title: 更新日志
 
 # MiniExtend 更新记录
 
-::: tip
+::: danger
 
-此处的最新版本是文档的支持版本，更新不一定及时。
-
-你可以查看[官方文档](https://github.com/0-0000/MiniExtend/blob/master/CHANGELOG.md)以获取最新版本。
+MiniExtend 已经 EOL 。
 
 :::
 
