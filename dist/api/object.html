@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>对象管理 Object | MiniExtend</title>
+    <meta name="generator" content="VuePress 1.9.7">
+    
+    <meta name="description" content="一个为迷你世界脚本设计的Lua库">
+    
+    <link rel="preload" href="/MiniExtendDoc/assets/css/0.styles.fd811cd1.css" as="style"><link rel="preload" href="/MiniExtendDoc/assets/js/app.34877e6c.js" as="script"><link rel="preload" href="/MiniExtendDoc/assets/js/2.63c13255.js" as="script"><link rel="preload" href="/MiniExtendDoc/assets/js/12.5493479e.js" as="script"><link rel="prefetch" href="/MiniExtendDoc/assets/js/10.151a4c62.js"><link rel="prefetch" href="/MiniExtendDoc/assets/js/11.1a4ac75d.js"><link rel="prefetch" href="/MiniExtendDoc/assets/js/13.82cf42eb.js"><link rel="prefetch" href="/MiniExtendDoc/assets/js/14.67a40162.js"><link rel="prefetch" href="/MiniExtendDoc/assets/js/15.300bd2c9.js"><link rel="prefetch" href="/MiniExtendDoc/assets/js/16.a4a2400c.js"><link rel="prefetch" href="/MiniExtendDoc/assets/js/17.e8a5fd42.js"><link rel="prefetch" href="/MiniExtendDoc/assets/js/18.39d3c67a.js"><link rel="prefetch" href="/MiniExtendDoc/assets/js/3.40515bec.js"><link rel="prefetch" href="/MiniExtendDoc/assets/js/4.94733d25.js"><link rel="prefetch" href="/MiniExtendDoc/assets/js/5.2ea06e07.js"><link rel="prefetch" href="/MiniExtendDoc/assets/js/6.8d81f0ec.js"><link rel="prefetch" href="/MiniExtendDoc/assets/js/7.7124ad08.js"><link rel="prefetch" href="/MiniExtendDoc/assets/js/8.eebc99db.js"><link rel="prefetch" href="/MiniExtendDoc/assets/js/9.8b46da46.js">
+    <link rel="stylesheet" href="/MiniExtendDoc/assets/css/0.styles.fd811cd1.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/MiniExtendDoc/" class="home-link router-link-active"><!----> <span class="site-name">MiniExtend</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/MiniExtendDoc/guide/" class="nav-link">
+  指南
+</a></div><div class="nav-item"><a href="/MiniExtendDoc/api/" class="nav-link router-link-active">
+  API参考
+</a></div> <a href="https://github.com/0-0000/MiniExtend" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/MiniExtendDoc/guide/" class="nav-link">
+  指南
+</a></div><div class="nav-item"><a href="/MiniExtendDoc/api/" class="nav-link router-link-active">
+  API参考
+</a></div> <a href="https://github.com/0-0000/MiniExtend" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><a href="/MiniExtendDoc/guide/" class="sidebar-link">快速上手</a></li><li><a href="/MiniExtendDoc/guide/starter.html" class="sidebar-link">简介与约定</a></li><li><a href="/MiniExtendDoc/guide/environment.html" class="sidebar-link">环境搭建</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>MiniExtend API</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/MiniExtendDoc/api/" aria-current="page" class="sidebar-link">简介与约定</a></li><li><a href="/MiniExtendDoc/api/core.html" class="sidebar-link">核心环境 Core</a></li><li><a href="/MiniExtendDoc/api/log.html" class="sidebar-link">日志管理 Log</a></li><li><a href="/MiniExtendDoc/api/time.html" class="sidebar-link">游戏时间 Time</a></li><li><a href="/MiniExtendDoc/api/object.html" aria-current="page" class="active sidebar-link">对象管理 Object</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/MiniExtendDoc/api/object.html#注意事项" class="sidebar-link">注意事项</a></li><li class="sidebar-sub-header"><a href="/MiniExtendDoc/api/object.html#函数介绍" class="sidebar-link">函数介绍</a></li><li class="sidebar-sub-header"><a href="/MiniExtendDoc/api/object.html#代码示例" class="sidebar-link">代码示例</a></li></ul></li><li><a href="/MiniExtendDoc/api/event.html" class="sidebar-link">事件管理 Event</a></li><li><a href="/MiniExtendDoc/api/ui.html" class="sidebar-link">界面管理 UI</a></li></ul></section></li><li><a href="/MiniExtendDoc/changelog.html" class="sidebar-link">更新日志</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="miniextend-object"><a href="#miniextend-object" class="header-anchor">#</a> MiniExtend Object</h1> <p>对应源文件： <code>object.lua</code> 。</p> <p>MiniExtend Object 主要是为 <a href="/MiniExtendDoc/api/event.html">MiniExtend Event</a> 和 <a href="/MiniExtendDoc/api/ui.html">MiniExtend UI</a> 设定的。</p> <p>目前 MiniExtend Object 内容较少，且主要以理解为主。</p> <p>Object 的核心是一个叫 <code>objid</code> 的虚有值（其实是局部变量），<code>objid</code> 默认为 0 。</p> <p>在调用 MiniExtend 的一些函数时， <code>objid</code> 会作为游戏对象 id 参数（参数名以<em>id</em>结尾，如 <code>playerid</code> ）的默认值。</p> <h2 id="注意事项"><a href="#注意事项" class="header-anchor">#</a> 注意事项</h2> <p>在延时调用中是不会有正确的 <code>objid</code> 值的，在 <code>registerEvent</code> 回调中要特别注意。</p> <p>因为在发动延时调用后，回调函数会正常结束，然后会恢复 <code>objid</code> 的值，这时已经失去了理想的 <code>objid</code> 的值。</p> <h2 id="函数介绍"><a href="#函数介绍" class="header-anchor">#</a> 函数介绍</h2> <p>以下函数都是在 <code>_GScriptFenv_</code> 中的全局函数。</p> <h3 id="getobjectid"><a href="#getobjectid" class="header-anchor">#</a> <code>getObjectId</code></h3> <div class="language-lua extra-class"><pre class="language-lua"><code><span class="token comment">---@return any 取到的值</span>
+<span class="token keyword">function</span> <span class="token function">getObjectId</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">end</span>
+</code></pre></div><p>获取 <code>objid</code> 的值。</p> <h3 id="setobjectid"><a href="#setobjectid" class="header-anchor">#</a> <code>setObjectId</code></h3> <div class="language-lua extra-class"><pre class="language-lua"><code><span class="token comment">---@param objectid integer 要设置的值</span>
+<span class="token keyword">function</span> <span class="token function">setObjectId</span><span class="token punctuation">(</span>objectid<span class="token punctuation">)</span> <span class="token keyword">end</span>
+</code></pre></div><p>设置 <code>objid</code> 的值。</p> <h2 id="代码示例"><a href="#代码示例" class="header-anchor">#</a> 代码示例</h2> <div class="custom-block tip"><p class="custom-block-title">TIP</p> <p>对于 <code>UI.UIView:show</code> 函数，你可以不传递 <code>playerid</code> 参数调用该函数，这时 <code>objid</code> 将代替 <code>playerid</code> 参数。</p> <p>在 <code>registerEvent</code> 的回调中， <code>objid</code> 会被临时地设置为 <code>param[&quot;eventobjid&quot;]</code> 。</p></div> <p>实例功能：玩家进入游戏后打开 <code>uiview</code> 界面。</p> <div class="language-lua extra-class"><pre class="language-lua"><code>Env<span class="token punctuation">.</span><span class="token function">__init__</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment">---UI 界面 id</span>
+<span class="token keyword">local</span> uiid <span class="token operator">=</span> <span class="token string">[[]]</span>
+
+<span class="token comment">---引用对应的 UI 界面</span>
+uiview <span class="token operator">=</span> UI<span class="token punctuation">.</span>UIView<span class="token punctuation">:</span><span class="token function">new</span><span class="token punctuation">(</span>uiid<span class="token punctuation">)</span>
+
+<span class="token function">registerEvent</span><span class="token punctuation">(</span><span class="token string">[[Game.AnyPlayer.EnterGame]]</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>param<span class="token punctuation">)</span>
+	<span class="token comment">-- objid 已被隐式地设置为 param.eventobjid</span>
+	<span class="token comment">-- 等价于调用 uiview:show(getObjectId())</span>
+	uiview<span class="token punctuation">:</span><span class="token function">show</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span><span class="token punctuation">,</span> uiid<span class="token punctuation">)</span>
+</code></pre></div></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">Last Updated:</span> <span class="time">1/8/2023, 8:39:15 AM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/MiniExtendDoc/api/time.html" class="prev">
+        游戏时间 Time
+      </a></span> <span class="next"><a href="/MiniExtendDoc/api/event.html">
+        事件管理 Event
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/MiniExtendDoc/assets/js/app.34877e6c.js" defer></script><script src="/MiniExtendDoc/assets/js/2.63c13255.js" defer></script><script src="/MiniExtendDoc/assets/js/12.5493479e.js" defer></script>
+  </body>
+</html>

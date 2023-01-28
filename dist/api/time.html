@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>游戏时间 Time | MiniExtend</title>
+    <meta name="generator" content="VuePress 1.9.7">
+    
+    <meta name="description" content="一个为迷你世界脚本设计的Lua库">
+    
+    <link rel="preload" href="/MiniExtendDoc/assets/css/0.styles.fd811cd1.css" as="style"><link rel="preload" href="/MiniExtendDoc/assets/js/app.34877e6c.js" as="script"><link rel="preload" href="/MiniExtendDoc/assets/js/2.63c13255.js" as="script"><link rel="preload" href="/MiniExtendDoc/assets/js/13.82cf42eb.js" as="script"><link rel="prefetch" href="/MiniExtendDoc/assets/js/10.151a4c62.js"><link rel="prefetch" href="/MiniExtendDoc/assets/js/11.1a4ac75d.js"><link rel="prefetch" href="/MiniExtendDoc/assets/js/12.5493479e.js"><link rel="prefetch" href="/MiniExtendDoc/assets/js/14.67a40162.js"><link rel="prefetch" href="/MiniExtendDoc/assets/js/15.300bd2c9.js"><link rel="prefetch" href="/MiniExtendDoc/assets/js/16.a4a2400c.js"><link rel="prefetch" href="/MiniExtendDoc/assets/js/17.e8a5fd42.js"><link rel="prefetch" href="/MiniExtendDoc/assets/js/18.39d3c67a.js"><link rel="prefetch" href="/MiniExtendDoc/assets/js/3.40515bec.js"><link rel="prefetch" href="/MiniExtendDoc/assets/js/4.94733d25.js"><link rel="prefetch" href="/MiniExtendDoc/assets/js/5.2ea06e07.js"><link rel="prefetch" href="/MiniExtendDoc/assets/js/6.8d81f0ec.js"><link rel="prefetch" href="/MiniExtendDoc/assets/js/7.7124ad08.js"><link rel="prefetch" href="/MiniExtendDoc/assets/js/8.eebc99db.js"><link rel="prefetch" href="/MiniExtendDoc/assets/js/9.8b46da46.js">
+    <link rel="stylesheet" href="/MiniExtendDoc/assets/css/0.styles.fd811cd1.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/MiniExtendDoc/" class="home-link router-link-active"><!----> <span class="site-name">MiniExtend</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/MiniExtendDoc/guide/" class="nav-link">
+  指南
+</a></div><div class="nav-item"><a href="/MiniExtendDoc/api/" class="nav-link router-link-active">
+  API参考
+</a></div> <a href="https://github.com/0-0000/MiniExtend" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/MiniExtendDoc/guide/" class="nav-link">
+  指南
+</a></div><div class="nav-item"><a href="/MiniExtendDoc/api/" class="nav-link router-link-active">
+  API参考
+</a></div> <a href="https://github.com/0-0000/MiniExtend" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><a href="/MiniExtendDoc/guide/" class="sidebar-link">快速上手</a></li><li><a href="/MiniExtendDoc/guide/starter.html" class="sidebar-link">简介与约定</a></li><li><a href="/MiniExtendDoc/guide/environment.html" class="sidebar-link">环境搭建</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>MiniExtend API</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/MiniExtendDoc/api/" aria-current="page" class="sidebar-link">简介与约定</a></li><li><a href="/MiniExtendDoc/api/core.html" class="sidebar-link">核心环境 Core</a></li><li><a href="/MiniExtendDoc/api/log.html" class="sidebar-link">日志管理 Log</a></li><li><a href="/MiniExtendDoc/api/time.html" aria-current="page" class="active sidebar-link">游戏时间 Time</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/MiniExtendDoc/api/time.html#函数介绍" class="sidebar-link">函数介绍</a></li><li class="sidebar-sub-header"><a href="/MiniExtendDoc/api/time.html#类介绍" class="sidebar-link">类介绍</a></li><li class="sidebar-sub-header"><a href="/MiniExtendDoc/api/time.html#代码示例" class="sidebar-link">代码示例</a></li></ul></li><li><a href="/MiniExtendDoc/api/object.html" class="sidebar-link">对象管理 Object</a></li><li><a href="/MiniExtendDoc/api/event.html" class="sidebar-link">事件管理 Event</a></li><li><a href="/MiniExtendDoc/api/ui.html" class="sidebar-link">界面管理 UI</a></li></ul></section></li><li><a href="/MiniExtendDoc/changelog.html" class="sidebar-link">更新日志</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="miniextend-time"><a href="#miniextend-time" class="header-anchor">#</a> MiniExtend Time</h1> <p>对应源文件： <code>time.lua</code> 。</p> <h2 id="函数介绍"><a href="#函数介绍" class="header-anchor">#</a> 函数介绍</h2> <h3 id="gettick"><a href="#gettick" class="header-anchor">#</a> <code>getTick</code></h3> <p>获取当前是第几游戏帧。</p> <div class="language-lua extra-class"><pre class="language-lua"><code><span class="token comment">---@return integer</span>
+<span class="token keyword">function</span> <span class="token function">getTick</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">end</span>
+</code></pre></div><h3 id="schedulecall"><a href="#schedulecall" class="header-anchor">#</a> scheduleCall</h3> <p>延时调用。</p> <div class="language-lua extra-class"><pre class="language-lua"><code><span class="token comment">---@param ticks integer 多少游戏帧后执行回调</span>
+<span class="token comment">---@param func fun():any 执行的回调</span>
+<span class="token comment">---@param ...data any[] 执行回调的带的参数</span>
+<span class="token comment">---@return integer | false 成功时返回延时调用的 ID ，失败返回 false</span>
+<span class="token keyword">function</span> <span class="token function">scheduleCall</span><span class="token punctuation">(</span>ticks<span class="token punctuation">,</span> func<span class="token punctuation">,</span> <span class="token punctuation">...</span><span class="token punctuation">)</span> <span class="token keyword">end</span>
+</code></pre></div><h3 id="nexttick"><a href="#nexttick" class="header-anchor">#</a> <code>nextTick</code></h3> <p>下个游戏帧执行回调。</p> <div class="language-lua extra-class"><pre class="language-lua"><code><span class="token comment">---@param func fun():any 下个游戏帧执行的回调</span>
+<span class="token comment">---@param ...data any[] 执行回调的带的参数</span>
+<span class="token keyword">function</span> <span class="token function">nextTick</span><span class="token punctuation">(</span>func<span class="token punctuation">,</span> <span class="token punctuation">...</span><span class="token punctuation">)</span> <span class="token keyword">end</span>
+</code></pre></div><p>等价于 <code>scheduleCall(1, func, ...);</code> 。</p> <div class="custom-block tip"><p class="custom-block-title">TIP</p> <p>如果延时回调中再执行延时，会从下一帧开始倒计时。</p></div> <h3 id="cancelschedulecall"><a href="#cancelschedulecall" class="header-anchor">#</a> <code>cancelScheduleCall</code></h3> <p>取消延时调用。</p> <div class="language-lua extra-class"><pre class="language-lua"><code><span class="token comment">---@param id integer 延时调用的 ID</span>
+<span class="token comment">---@return boolean 调用是否成功</span>
+<span class="token keyword">function</span> <span class="token function">cancelScheduleCall</span><span class="token punctuation">(</span>id<span class="token punctuation">)</span> <span class="token keyword">end</span>
+</code></pre></div><h2 id="类介绍"><a href="#类介绍" class="header-anchor">#</a> 类介绍</h2> <h3 id="timer"><a href="#timer" class="header-anchor">#</a> <code>Timer</code></h3> <p><code>Timer</code> 类，即计时器类，以下简称 <code>Timer</code> 。</p> <p>注意，计时器运行时间晚于延时调用函数（<code>scheduleCall</code>）</p> <p>在延时回调函数中启动计时器会使计时器在那一帧运行。</p> <p><code>delay</code> 值会递减，然后判断 <code>delay</code> 并调用 <code>callback</code> ，调用 <code>callback</code> 并重置 <code>delay</code> 。</p> <p>构造函数：使用 <code>Timer:new()</code> 构造一个 <code>Timer</code> 对象，计时器默认是<strong>暂停</strong>的。</p> <p>析构函数：使用 <code>Timer:delete()</code> 使计时器永久停止。</p> <p>成员变量：</p> <table><thead><tr><th style="text-align:center;">名称</th> <th style="text-align:center;">类型</th> <th style="text-align:center;">简介</th> <th style="text-align:center;">可读</th> <th style="text-align:center;">可写</th></tr></thead> <tbody><tr><td style="text-align:center;"><code>createTime</code></td> <td style="text-align:center;"><code>number</code></td> <td style="text-align:center;">对象创建时的<strong>CPU 时间</strong></td> <td style="text-align:center;">√</td> <td style="text-align:center;"></td></tr> <tr><td style="text-align:center;"><code>tick</code></td> <td style="text-align:center;"><code>integer</code></td> <td style="text-align:center;">计时器<strong>累计运行</strong>的游戏帧数</td> <td style="text-align:center;">√</td> <td style="text-align:center;"></td></tr> <tr><td style="text-align:center;"><code>delay</code></td> <td style="text-align:center;"><code>integer</code></td> <td style="text-align:center;">下次调用 <code>callback</code> 的间隔帧数（≤0时恢复为1）</td> <td style="text-align:center;">√</td> <td style="text-align:center;"></td></tr> <tr><td style="text-align:center;"><code>callback</code></td> <td style="text-align:center;"><code>function</code> | <code>nil</code></td> <td style="text-align:center;"><code>delay</code> ≤0时的回调</td> <td style="text-align:center;">√</td> <td style="text-align:center;"></td></tr></tbody></table> <p>执行回调时传递两个参数：<code>self</code>（计时器对象） 和 <code>tick</code> （当前游戏帧数）。</p> <p>成员函数：</p> <div class="language-lua extra-class"><pre class="language-lua"><code><span class="token comment">---启动计时器。</span>
+<span class="token comment">---@return boolean 是否成功（调用前是否暂停）</span>
+<span class="token keyword">function</span> Timer<span class="token punctuation">:</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">end</span>
+</code></pre></div><div class="language-lua extra-class"><pre class="language-lua"><code><span class="token comment">---暂停计时器。</span>
+<span class="token comment">---@return boolean 是否成功（调用前是否启动）</span>
+<span class="token keyword">function</span> Timer<span class="token punctuation">:</span><span class="token function">pause</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">end</span>
+</code></pre></div><div class="language-lua extra-class"><pre class="language-lua"><code><span class="token comment">---获取计时器是否启动。</span>
+<span class="token comment">---@return boolean 计时器是否启动</span>
+<span class="token keyword">function</span> Timer<span class="token punctuation">:</span><span class="token function">isRunning</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">end</span>
+</code></pre></div><h2 id="代码示例"><a href="#代码示例" class="header-anchor">#</a> 代码示例</h2> <h3 id="背景"><a href="#背景" class="header-anchor">#</a> 背景</h3> <p>定义 <code>tick</code> 表示当前游戏帧， <code>i</code> 的值为 2 。</p> <p>从第一帧开始，每隔两帧执行以下操作：</p> <ul><li>在日志输出当前帧，以及 <code>Fibonacci[i]</code> 的值。</li> <li>将 <code>i</code> 的值加 1 。</li></ul> <p><code>i</code> = 50 后，停止输出。
+<code>Fibonacci</code> 表示斐波那契数列，以下简称 <code>fib</code> ，它的定义如下:</p> <ul><li><code>fib[0] = 0</code></li> <li><code>fib[1] = 1</code></li> <li><code>fib[i] = fib[i-1] + fib[i-2] ( i ≥ 2 , i ∈ N* )</code></li></ul> <h3 id="分析"><a href="#分析" class="header-anchor">#</a> 分析</h3> <p>首先需要知道递推求 <code>fib[1...n]</code> 的方法:</p> <blockquote><p>定义 <code>fibs[0...n]</code> ，满足 <code>fibs[i]</code> = <code>fib[i]</code>。<br>令 <code>fibs[0]</code> = <code>fib[0]</code> = <code>0</code>, <code>fib[1]</code> = <code>fib[1]</code> = <code>1</code> ，该步骤符合 <code>fibs</code> 的性质。<br>	令 <code>k</code> 从 <code>2</code> 到 <code>n</code> 进行如下运算：<br>- 令 <code>fibs[k]</code> = <code>fibs[k-1]</code> + <code>fibs[k-2]</code><br>- 该步骤也符合 <code>fibs</code> 的性质<br><code>fibs</code> 即为所求。</p></blockquote> <p>实际上并不是真的需要 <code>fibs</code> 数组，因为计算 <code>fibs[k]</code> 只需要 <code>fibs[k-1]</code> 和 <code>fibs[k-2]</code> 的值，所以只需要存储这三个变量即可计算。</p> <p>使用 MiniExtend Time 来完成异步输出，使用 <code>nextTick()</code> 函数实现&quot;从第一帧开始&quot; 。
+使用 <code>Timer</code> 计时器对象，通过设置其 <code>delay</code> 值为 2 实现&quot;每隔两帧&quot; 。
+<code>i &gt;= 50</code> 时调用 <code>Timer:pause()</code> 来实现&quot;停止循环&quot;。</p> <h3 id="代码"><a href="#代码" class="header-anchor">#</a> 代码</h3> <div class="language-lua extra-class"><pre class="language-lua"><code>Env<span class="token punctuation">.</span><span class="token function">__init__</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+timer <span class="token operator">=</span> Timer<span class="token punctuation">:</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token comment">-- fib1 表示 fib[i-2] , fib2 表示 fib[i-1]</span>
+<span class="token comment">-- fib[0] = 0, fib[1] = 1</span>
+<span class="token keyword">local</span> i<span class="token punctuation">,</span> fib1<span class="token punctuation">,</span> fib2 <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span>
+<span class="token comment">-- 另一种方法:</span>
+<span class="token comment">-- timer.calback = function(self, tick)</span>
+<span class="token keyword">function</span> timer<span class="token punctuation">:</span><span class="token function">callback</span><span class="token punctuation">(</span>tick<span class="token punctuation">)</span>
+	<span class="token comment">-- 回调时 delay 已被默认地设为 1 ，因此需要重新设置 delay</span>
+	self<span class="token punctuation">.</span>delay <span class="token operator">=</span> <span class="token number">2</span>
+	<span class="token comment">-- fib3 表示 Fibonacci[i]</span>
+	<span class="token keyword">local</span> fib3 <span class="token operator">=</span> fib1 <span class="token operator">+</span> fib2
+	<span class="token keyword">local</span> tickInfo<span class="token punctuation">,</span> fibInfo <span class="token operator">=</span> <span class="token string">&quot;tick &quot;</span><span class="token operator">..</span><span class="token function">tostring</span><span class="token punctuation">(</span>tick<span class="token punctuation">)</span>
+	<span class="token keyword">local</span> fibInfo <span class="token operator">=</span> <span class="token string">&quot;fib[&quot;</span><span class="token operator">..</span><span class="token function">tostring</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token operator">..</span><span class="token string">&quot;] = &quot;</span><span class="token operator">..</span><span class="token function">tostring</span><span class="token punctuation">(</span>fib3<span class="token punctuation">)</span>
+	Log<span class="token punctuation">.</span><span class="token function">logtag</span><span class="token punctuation">(</span><span class="token string">&quot;fib&quot;</span><span class="token punctuation">,</span> tickInfo<span class="token punctuation">,</span> fibInfo<span class="token punctuation">)</span>
+	<span class="token keyword">if</span> i <span class="token operator">&gt;=</span> <span class="token number">50</span> <span class="token keyword">then</span>
+		timer<span class="token punctuation">:</span><span class="token function">pause</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token keyword">else</span>
+		<span class="token comment">-- 为新的 fib 计算准备</span>
+		i<span class="token punctuation">,</span> fib1<span class="token punctuation">,</span> fib2 <span class="token operator">=</span> i<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span> fib2<span class="token punctuation">,</span> fib3
+	<span class="token keyword">end</span>
+<span class="token keyword">end</span>
+<span class="token comment">-- 另一种方法:</span>
+<span class="token comment">-- scheduleCall(1, function()</span>
+<span class="token function">nextTick</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token comment">-- 计时器运行晚于 nextTick</span>
+	<span class="token comment">-- 在这个 nextTick 回调后的那一帧 timer 就会开始运行</span>
+	timer<span class="token punctuation">:</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span><span class="token punctuation">)</span>
+</code></pre></div><p>部分输出:</p> <div class="language- extra-class"><pre class="language-text"><code>[...][fib] tick 1 fib[2] = 1
+[...][fib] tick 3 fib[3] = 2
+[...][fib] tick 5 fib[4] = 31
+[...][fib] tick 7 fib[5] = 5
+[...][fib] tick 9 fib[6] = 8
+[...][fib] tick 11 fib[7] = 13
+[...][fib] tick 13 fib[8] = 21
+[...][fib] tick 15 fib[9] = 34
+[...][fib] tick 17 fib[10] = 55
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>[...][fib] tick 87 fib[45] = 1134903170
+[...][fib] tick 89 fib[46] = 1836311903
+[...][fib] tick 91 fib[47] = 2971215073
+[...][fib] tick 93 fib[48] = 4807526976
+[...][fib] tick 95 fib[49] = 7778742049
+[...][fib] tick 97 fib[50] = 12586269025
+</code></pre></div></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">Last Updated:</span> <span class="time">1/8/2023, 8:39:15 AM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/MiniExtendDoc/api/log.html" class="prev">
+        日志管理 Log
+      </a></span> <span class="next"><a href="/MiniExtendDoc/api/object.html">
+        对象管理 Object
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/MiniExtendDoc/assets/js/app.34877e6c.js" defer></script><script src="/MiniExtendDoc/assets/js/2.63c13255.js" defer></script><script src="/MiniExtendDoc/assets/js/13.82cf42eb.js" defer></script>
+  </body>
+</html>
